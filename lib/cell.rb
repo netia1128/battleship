@@ -13,8 +13,9 @@ class Cell
     @status == "."
   end
 
-  def place_ship
+  def place_ship(ship)
     @status = 'S'
+    @ship = ship
   end
 
   def fired_upon?
@@ -24,6 +25,10 @@ class Cell
   def fire_upon
     if @status == "."
       @status = "M"
+    elsif @status == "S" && @ship.health > 1
+      @status = "H"
+    else
+      @status = "X"
     end
   end
 end

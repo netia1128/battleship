@@ -29,14 +29,16 @@ RSpec.describe Cell do
       expect(@cell.empty?).to eq(true)
     end
     it 'returns false if a cell is not empty' do
-      @cell.place_ship
+      ship = Ship.new("cruiser", 3)
+      @cell.place_ship(ship)
       expect(@cell.empty?).to eq(false)
     end
   end
 
   describe '#place ship' do
     it 'places a ship' do
-      @cell.place_ship
+      ship = Ship.new("cruiser", 3)
+      @cell.place_ship(ship)
       expect(@cell.status).to eq('S')
     end
   end
@@ -44,15 +46,24 @@ RSpec.describe Cell do
   describe '#fired_upon?' do
     it 'returns false if cell has not been fired upon' do
       expect(@cell.fired_upon?).to eq(false)
-      @cell.place_ship
+      ship = Ship.new("cruiser", 3)
+      @cell.place_ship(ship)
       expect(@cell.fired_upon?).to eq(false)
     end
   end
 
   describe '#fire_upon' do
-    it 'updates status' do
-      @cell.fire_upon
-      expect(@cell.status).to eq("M")
+    describe 'updates status' do
+      it 'from . to M' do
+        @cell.fire_upon
+        expect(@cell.status).to eq("M")
+      end
+      it 'from S to H' do
+        ship = Ship.new("cruiser", 3)
+        @cell.place_ship(ship)
+        @cell.fire_upon
+        expect(@cell.status).to eq("H")
+      end
     end
   end
 
