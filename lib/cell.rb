@@ -12,4 +12,8 @@ class Cell
   def empty?
     @status == "."
   end
+
+  def place_ship
+    @status = 'S'
+  end
 end
