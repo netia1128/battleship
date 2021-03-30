@@ -8,4 +8,12 @@ class Cell
     @status = "."
     @ship = nil
   end
+
+  def empty?
+    @status == "."
+  end
+
+  def place_ship
+    @status = 'S'
+  end
 end
