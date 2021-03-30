@@ -50,6 +50,22 @@ RSpec.describe Cell do
       @cell.place_ship(ship)
       expect(@cell.fired_upon?).to eq(false)
     end
+    it 'returns true if status is M' do
+      @cell.fire_upon
+      expect(@cell.fired_upon?).to eq(true)
+    end
+    it 'returns true if status is H' do
+      ship = Ship.new("cruiser", 3)
+      @cell.place_ship(ship)
+      @cell.fire_upon
+      expect(@cell.fired_upon?).to eq(true)
+    end
+    it 'returns true if status is X' do
+      ship = Ship.new("tug boat", 1)
+      @cell.place_ship(ship)
+      @cell.fire_upon
+      expect(@cell.fired_upon?).to eq(true)
+    end
   end
 
   describe '#fire_upon' do
@@ -65,7 +81,7 @@ RSpec.describe Cell do
         expect(@cell.status).to eq("H")
       end
       it 'from S to X' do
-        ship = Ship.new("cruiser", 1)
+        ship = Ship.new("tug boat", 1)
         @cell.place_ship(ship)
         @cell.fire_upon
         expect(@cell.status).to eq("X")
