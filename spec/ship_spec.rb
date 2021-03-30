@@ -15,5 +15,8 @@ RSpec.describe Ship do
     it 'has a length' do
       expect(@ship.length).to eq(3)
     end
+    it 'has an initial health' do
+      expect(@ship.health).to eq(3)
+    end
   end
 end
