@@ -19,4 +19,9 @@ RSpec.describe Ship do
       expect(@ship.health).to eq(3)
     end
   end
+  describe '#sunk?' do
+    it 'has an initial health' do
+      expect(@ship.sunk?).to eq(false)
+    end
+  end
 end
