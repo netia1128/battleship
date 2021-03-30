@@ -24,4 +24,10 @@ RSpec.describe Ship do
       expect(@ship.sunk?).to eq(false)
     end
   end
+  describe '#hit' do
+    it 'decrements health' do
+      @ship.hit
+      expect(@ship.health).to eq(2)
+    end
+  end
 end
