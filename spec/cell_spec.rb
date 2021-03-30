@@ -23,4 +23,12 @@ RSpec.describe Cell do
       expect(@cell.ship).to eq(nil)
     end
   end
+
+  describe '#empty?' do
+    it 'tells me if a cell is empty' do
+      expect(@cell.empty?).to eq(true)
+    end
+
+  end
+
 end
