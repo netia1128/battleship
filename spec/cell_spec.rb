@@ -18,5 +18,9 @@ RSpec.describe Cell do
     it 'has a . status' do
       expect(@cell.status).to eq(".")
     end
+
+    it 'does not start with a ship' do
+      expect(@cell.ship).to eq(nil)
+    end
   end
 end
