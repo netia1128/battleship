@@ -87,6 +87,26 @@ RSpec.describe Cell do
         expect(@cell.status).to eq("X")
       end
     end
+
+    describe '#render' do
+        it 'renders a cell with . status as .' do
+          expect(@cell.render).to eq(".")
+        end
+        it 'renders a cell with M status as M' do
+          @cell.fire_upon
+          expect(@cell.render).to eq("M")
+        end
+        it 'renders a cell with S status as . by default' do
+          ship = Ship.new("tug boat", 1)
+          @cell.place_ship(ship)
+          expect(@cell.render).to eq(".")
+        end
+        it 'renders a cell with S status as .' do
+          ship = Ship.new("tug boat", 1)
+          @cell.place_ship(ship)
+          expect(@cell.render(true)).to eq(".")
+        end
+      end
   end
 
 end
