@@ -49,4 +49,11 @@ RSpec.describe Cell do
     end
   end
 
+  describe '#fire_upon' do
+    it 'updates status' do
+      @cell.fire_upon
+      expect(@cell.status).to eq("M")
+    end
+  end
+
 end

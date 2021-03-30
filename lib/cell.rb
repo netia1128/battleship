@@ -20,4 +20,10 @@ class Cell
   def fired_upon?
     @status == "X" || @status == "M"
   end
+
+  def fire_upon
+    if @status == "."
+      @status = "M"
+    end
+  end
 end
