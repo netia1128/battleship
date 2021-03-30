@@ -41,4 +41,12 @@ RSpec.describe Cell do
     end
   end
 
+  describe '#fired_upon?' do
+    it 'returns false if cell has not been fired upon' do
+      expect(@cell.fired_upon?).to eq(false)
+      @cell.place_ship
+      expect(@cell.fired_upon?).to eq(false)
+    end
+  end
+
 end

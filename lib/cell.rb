@@ -16,4 +16,8 @@ class Cell
   def place_ship
     @status = 'S'
   end
+
+  def fired_upon?
+    @status == "X" || @status == "M"
+  end
 end
