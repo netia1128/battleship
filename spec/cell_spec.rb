@@ -64,6 +64,12 @@ RSpec.describe Cell do
         @cell.fire_upon
         expect(@cell.status).to eq("H")
       end
+      it 'from S to X' do
+        ship = Ship.new("cruiser", 1)
+        @cell.place_ship(ship)
+        @cell.fire_upon
+        expect(@cell.status).to eq("X")
+      end
     end
   end
 
