@@ -29,15 +29,63 @@ RSpec.describe Cell do
       expect(@cell.empty?).to eq(true)
     end
     it 'returns false if a cell is not empty' do
-      @cell.place_ship
+      ship = Ship.new("cruiser", 3)
+      @cell.place_ship(ship)
       expect(@cell.empty?).to eq(false)
     end
   end
 
   describe '#place ship' do
     it 'places a ship' do
-      @cell.place_ship
+      ship = Ship.new("cruiser", 3)
+      @cell.place_ship(ship)
       expect(@cell.status).to eq('S')
+    end
+  end
+
+  describe '#fired_upon?' do
+    it 'returns false if cell has not been fired upon' do
+      expect(@cell.fired_upon?).to eq(false)
+      ship = Ship.new("cruiser", 3)
+      @cell.place_ship(ship)
+      expect(@cell.fired_upon?).to eq(false)
+    end
+    it 'returns true if status is M' do
+      @cell.fire_upon
+      expect(@cell.fired_upon?).to eq(true)
+    end
+    it 'returns true if status is H' do
+      ship = Ship.new("cruiser", 3)
+      @cell.place_ship(ship)
+      @cell.fire_upon
+      expect(@cell.fired_upon?).to eq(true)
+    end
+    it 'returns true if status is X' do
+      ship = Ship.new("tug boat", 1)
+      @cell.place_ship(ship)
+      @cell.fire_upon
+      expect(@cell.fired_upon?).to eq(true)
+    end
+  end
+
+  describe '#fire_upon' do
+    describe 'updates status' do
+      it 'from . to M' do
+        @cell.fire_upon
+        expect(@cell.status).to eq("M")
+      end
+      it 'from S to H' do
+        ship = Ship.new("cruiser", 3)
+        @cell.place_ship(ship)
+        @cell.fire_upon
+        expect(@cell.status).to eq("H")
+      end
+      it 'from S to X' do
+        ship = Ship.new("tug boat", 1)
+        @cell.place_ship(ship)
+        @cell.fire_upon
+        expect(@cell.status).to eq("X")
+      end
     end
   end
 
