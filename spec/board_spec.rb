@@ -26,4 +26,12 @@ RSpec.describe Board do
       expect(@board.shots_available).to eq([:A1, :A2, :A3, :A4, :B1, :B2, :B3, :B4, :C1, :C2, :C3, :C4, :D1, :D2, :D3, :D4])
     end
   end
+  describe '#valid_coordinate' do
+    it 'returns true if coordinate on the board' do
+      expect(@board.valid_coordinate("B4")).to eq(true)
+    end
+    it 'returns false if coordinate on the board' do
+      expect(@board.valid_coordinate("F44")).to eq(false)
+    end
+  end
 end

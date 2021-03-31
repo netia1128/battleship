@@ -23,5 +23,7 @@ class Board
     @shots_available = @cells.keys
   end
 
-
+  def valid_coordinate(coordinate)
+    @cells.keys.to_a.include? coordinate.to_sym
+  end
 end
