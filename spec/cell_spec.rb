@@ -87,6 +87,38 @@ RSpec.describe Cell do
         expect(@cell.status).to eq("X")
       end
     end
+
+    describe '#render' do
+        it 'renders a cell with . status as .' do
+          expect(@cell.render).to eq(".")
+        end
+        it 'renders a cell with M status as M' do
+          @cell.fire_upon
+          expect(@cell.render).to eq("M")
+        end
+        it 'renders a cell with S status as . by default' do
+          ship = Ship.new("tug boat", 1)
+          @cell.place_ship(ship)
+          expect(@cell.render).to eq(".")
+        end
+        it 'renders a cell with S status as S if show_ships true' do
+          ship = Ship.new("tug boat", 1)
+          @cell.place_ship(ship)
+          expect(@cell.render(true)).to eq("S")
+        end
+        it 'renders a cell with H status as H' do
+          ship = Ship.new("crusier", 3)
+          @cell.place_ship(ship)
+          @cell.fire_upon
+          expect(@cell.render).to eq("H")
+        end
+        it 'renders a cell with X status as X' do
+          ship = Ship.new("tug boat", 1)
+          @cell.place_ship(ship)
+          @cell.fire_upon
+          expect(@cell.render).to eq("X")
+        end
+      end
   end
 
 end

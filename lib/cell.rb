@@ -36,4 +36,12 @@ class Cell
       @status = "X"
     end
   end
+
+  def render(show_ships = false)
+    if show_ships == false && @status == "S"
+      "."
+    else
+      @status
+    end
+  end
 end
