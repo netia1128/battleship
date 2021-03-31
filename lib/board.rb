@@ -26,4 +26,8 @@ class Board
   def valid_coordinate(coordinate)
     @cells.keys.to_a.include? coordinate.to_sym
   end
+
+  def valid_placement(ship, array)
+    array.count == ship.length
+  end
 end
