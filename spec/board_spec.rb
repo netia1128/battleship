@@ -13,5 +13,8 @@ RSpec.describe Board do
     it 'creates an instance of a board' do
       expect(@board).to be_an_instance_of(Board)
     end
+    it 'has a grid of cells by default' do
+      expect(@board.cells).to be_an_instance_of(Hash)
+    end
   end
 end
