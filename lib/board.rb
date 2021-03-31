@@ -1,5 +1,6 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells,
+              :shots_available
   def initialize
     @cells = {
       :A1 => Cell.new("A1"),
@@ -19,5 +20,8 @@ class Board
       :D3 => Cell.new("D3"),
       :D4 => Cell.new("D4")
     }
+    @shots_available = @cells.keys
   end
+
+
 end
