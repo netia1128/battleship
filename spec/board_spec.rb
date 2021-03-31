@@ -19,5 +19,8 @@ RSpec.describe Board do
     it 'has 16 cells by default' do
       expect(@board.cells.keys.count).to eq(16)
     end
+    it 'has a hash of 16 instances of cells' do
+      expect(@board.cells.values[0]).to be_an_instance_of(Cell)
+    end
   end
 end
