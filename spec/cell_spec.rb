@@ -106,11 +106,17 @@ RSpec.describe Cell do
           @cell.place_ship(ship)
           expect(@cell.render(true)).to eq("S")
         end
-        it 'renders a cell with H status as H if show_ships true' do
+        it 'renders a cell with H status as H' do
           ship = Ship.new("crusier", 3)
           @cell.place_ship(ship)
           @cell.fire_upon
           expect(@cell.render).to eq("H")
+        end
+        it 'renders a cell with X status as X' do
+          ship = Ship.new("tug boat", 1)
+          @cell.place_ship(ship)
+          @cell.fire_upon
+          expect(@cell.render).to eq("X")
         end
       end
   end
