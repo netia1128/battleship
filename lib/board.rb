@@ -95,9 +95,6 @@ class Board
   end
 
   def place(ship, coordinates)
-    # want to change each coordinate's ::ship
-    # maybe using the cell's place_ship method?
-      # This would be to update the status to "S"
     coordinates.each do |coordinate|
       if !valid_coordinate?(coordinate)
         # TODO call the error message here
@@ -109,6 +106,12 @@ class Board
       # TODO call the error message here
       # exit
       false
+    end
+    # want to change each coordinate's ::ship
+    # maybe using the cell's place_ship method?
+    # This would be to update the status to "S"
+    coordinates.each do |coordinate|
+      @cells[coordinate.to_sym].place_ship(ship)
     end
   end
 end
