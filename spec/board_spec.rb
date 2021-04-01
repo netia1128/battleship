@@ -76,10 +76,15 @@ RSpec.describe Board do
     end
     it 'updates the cell\'s ship to the placed ship' do
       @board.place(@cruiser, ["A3", "A1", "A2"])
+      expect(@board.cells[:A1].ship).to eq(@cruiser)
       expect(@board.cells[:A2].ship).to eq(@cruiser)
+      expect(@board.cells[:A3].ship).to eq(@cruiser)
     end
-    # it 'updates the cells status from . to S' do
-    #
-    # end
+    it 'updates the cell\'s ship to the placed ship' do
+      @board.place(@cruiser, ["A3", "A1", "A2"])
+      expect(@board.cells[:A1].status).to eq("S")
+      expect(@board.cells[:A2].status).to eq("S")
+      expect(@board.cells[:A3].status).to eq("S")
+    end
   end
 end
