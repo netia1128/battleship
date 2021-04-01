@@ -44,11 +44,8 @@ RSpec.describe Board do
     it 'returns false if coordinates are not consecutive' do
       expect(@board.valid_placement?(@cruiser,["A1", "A3", "A4"])).to eq(false)
     end
-    # it 'returns false if coordinates provided not empty' do
-    #   expect(@board.valid_coordinate("F44")).to eq(false)
-    # end
-    # it 'returns true if placement is valid' do
-    #   expect(@board.valid_coordinate("F44")).to eq(false)
-    # end
+    it 'returns false if coordinates are diagonal' do
+      expect(@board.valid_placement?(@cruiser,["A1", "B2", "C3"])).to eq(false)
+    end
   end
 end
