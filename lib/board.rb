@@ -123,7 +123,7 @@ class Board
     array = []
     string = ""
     @cells.each do |key, cell|
-      array << cell.status
+      array << cell.render(show_ships)
     end
     board_dimension.times do
       string += "#{@cells.keys[count].to_s[0]} "
