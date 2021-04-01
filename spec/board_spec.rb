@@ -7,6 +7,7 @@ RSpec.describe Board do
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @tug_boat = Ship.new("Tug Boat", 1)
+    @submarine = Ship.new("Submarine", 2)
   end
 
   describe '#initialize' do
@@ -50,6 +51,10 @@ RSpec.describe Board do
     it 'returns false if cell is not empty' do
       @board.cells[:A1].place_ship(@tug_boat)
       expect(@board.valid_placement?(@cruiser,["A1", "B2", "C3"])).to eq(false)
+    end
+    it 'returns true if valid placement' do
+      expect(@board.valid_placement?(@cruiser,["A1", "B1", "C1"])).to eq(true)
+      expect(@board.valid_placement?(@submarine,["D4", "C4"])).to eq(true)
     end
   end
 end
