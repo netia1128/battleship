@@ -100,9 +100,15 @@ class Board
       # This would be to update the status to "S"
     coordinates.each do |coordinate|
       if !valid_coordinate?(coordinate)
-        exit
-        # return false
+        # TODO call the error message here
+        # exit
+        return false
       end
+    end
+    if !valid_placement?(ship, coordinates)
+      # TODO call the error message here
+      # exit
+      false
     end
   end
 end

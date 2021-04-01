@@ -62,9 +62,10 @@ RSpec.describe Board do
       @board.place(@cruiser, ["A0", "A1", "A2"])
       expect(@board.cells[:A2].status).to eq(".")
     end
-    # it 'does not update the status of a cell if placement is invalid' do
-    #
-    # end
+    it 'does not update the status of a cell if placement is invalid' do
+      @board.place(@cruiser, ["A4", "A1", "A2"])
+      expect(@board.cells[:A2].status).to eq(".")
+    end
     # it 'does not update the cells ship if coordinate is invalid' do
     #
     # end
