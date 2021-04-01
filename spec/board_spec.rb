@@ -7,6 +7,7 @@ RSpec.describe Board do
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @tug_boat = Ship.new("Tug Boat", 1)
+    @submarine = Ship.new("Submarine", 2)
   end
 
   describe '#initialize' do
@@ -24,6 +25,36 @@ RSpec.describe Board do
     end
     it 'has an array of available shots' do
       expect(@board.shots_available).to eq([:A1, :A2, :A3, :A4, :B1, :B2, :B3, :B4, :C1, :C2, :C3, :C4, :D1, :D2, :D3, :D4])
+    end
+  end
+  describe '#valid_coordinate?' do
+    it 'returns true if coordinate on the board' do
+      expect(@board.valid_coordinate?("B4")).to eq(true)
+    end
+    it 'returns false if coordinate on the board' do
+      expect(@board.valid_coordinate?("F44")).to eq(false)
+    end
+  end
+  describe '#valid_placement' do
+    it 'returns false if array provided is != to ship.length' do
+      expect(@board.valid_placement?(@cruiser,["A1", "B1"])).to eq(false)
+    end
+    it 'returns false duplicate coordinates provided' do
+      expect(@board.valid_placement?(@tug_boat,["A1", "A1"])).to eq(false)
+    end
+    it 'returns false if coordinates are not consecutive' do
+      expect(@board.valid_placement?(@cruiser,["A1", "A3", "A4"])).to eq(false)
+    end
+    it 'returns false if coordinates are diagonal' do
+      expect(@board.valid_placement?(@cruiser,["A1", "B2", "C3"])).to eq(false)
+    end
+    it 'returns false if cell is not empty' do
+      @board.cells[:A1].place_ship(@tug_boat)
+      expect(@board.valid_placement?(@cruiser,["A1", "B2", "C3"])).to eq(false)
+    end
+    it 'returns true if valid placement' do
+      expect(@board.valid_placement?(@cruiser,["A1", "B1", "C1"])).to eq(true)
+      expect(@board.valid_placement?(@submarine,["D4", "C4"])).to eq(true)
     end
   end
 end
