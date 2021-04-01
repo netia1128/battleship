@@ -21,7 +21,10 @@ class Board
       :D4 => Cell.new("D4")
     }
     @shots_available = @cells.keys
-    @player_provided_array = []
+    # Should we remove the user_coordinates instance variable
+    # or should we have a parameter throughout the class?
+    @user_coordinates = []
+    @proposed_ship = nil
   end
 
   def valid_coordinate?(coordinate)
@@ -29,67 +32,64 @@ class Board
   end
 
   def valid_placement?(ship, array)
-
-    @player_provided_array = array
-    #check if ship length = array length
-    if array.count != ship.length || array.uniq.count != array.length
+    @user_coordinates = array
+    @proposed_ship = ship
+    # Does this burn your eyes?
+    if coordinates_match_ship_length? || no_duplicate_coordinates? || !coordinates_not_empty?
       return false
     end
-
-    @player_provided_array.each do |coordinate|
-      if @cells[coordinate.to_sym].empty? == false
-        return false
-      end
-    end
-
-    split_player_coordinates
-    if is_horizontal?
-      if (create_array_of_numbers.sort.last - create_array_of_numbers.sort.first) + 1 == ship.length
-        return true
-      else
-        return false
-      end
-    elsif is_vertical?
-      if (create_array_of_letters.sort.last.ord - create_array_of_letters.sort.first.ord) + 1 == ship.length
-        return true
-      else
-        return false
-      end
+    if is_horizontal? && (user_coordinate_numbers.last - user_coordinate_numbers.first) + 1 == ship.length
+      return true
+    elsif is_vertical? && (user_coordinate_letters.last.ord - user_coordinate_letters.first.ord) + 1 == ship.length
+      return true
     else
       return false
     end
-
   end
 
-      def split_player_coordinates
-        @player_provided_array.map do |coordinate|
-          coordinate.split("")
-        end
+  def coordinates_not_empty?
+    @user_coordinates.each do |coordinate|
+      if !@cells[coordinate.to_sym].empty?
+        return false
       end
-
-      def create_array_of_numbers
-        horizontal_arr = []
-        split_player_coordinates.each do |sub_arr|
-          horizontal_arr << sub_arr[1].to_i
-        end
-        return horizontal_arr
-      end
-
-      def create_array_of_letters
-        vertical_arr = []
-        split_player_coordinates.each do |sub_arr|
-          vertical_arr << sub_arr[0]
-        end
-        return vertical_arr
-      end
-
-      def is_horizontal?
-        create_array_of_letters.uniq.count == 1
-      end
-
-      def is_vertical?
-        create_array_of_numbers.uniq.count == 1
-      end
-
     end
-    #  require "pry"; binding.pry
+  end
+
+  def coordinates_match_ship_length?
+    if @user_coordinates.count != @proposed_ship.length
+      return false
+    end
+  end
+
+  def no_duplicate_coordinates?
+    if @user_coordinates.uniq.count != @user_coordinates.length
+      return false
+    end
+  end
+
+  def split_user_coordinates
+    @user_coordinates.map do |coordinate|
+      coordinate.split("")
+    end
+  end
+
+  def user_coordinate_numbers
+    split_user_coordinates.map do |sub_arr|
+      sub_arr[1].to_i
+    end.sort
+  end
+
+  def user_coordinate_letters
+    split_user_coordinates.map do |sub_arr|
+      sub_arr[0]
+    end.sort
+  end
+
+  def is_horizontal?
+    user_coordinate_letters.uniq.count == 1
+  end
+
+  def is_vertical?
+    user_coordinate_numbers.uniq.count == 1
+  end
+end
