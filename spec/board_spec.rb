@@ -40,7 +40,7 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@cruiser,["A1", "B1"])).to eq(false)
     end
     it 'returns false duplicate coordinates provided' do
-      expect(@board.valid_placement?(@tug_boat,["A1", "A1"])).to eq(false)
+      expect(@board.valid_placement?(@submarine,["A1", "A1"])).to eq(false)
     end
     it 'returns false if coordinates are not consecutive' do
       expect(@board.valid_placement?(@cruiser,["A1", "A3", "A4"])).to eq(false)
