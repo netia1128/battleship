@@ -36,11 +36,11 @@ RSpec.describe Board do
   end
   describe '#valid_placement' do
     it 'returns false if array provided is != to ship.length' do
-      expect(@board.valid_placement(@cruiser,["A1", "A2"])).to eq(false)
+      expect(@board.valid_placement?(@cruiser,["A1", "B1"])).to eq(false)
     end
-    # it 'returns false coordinates are not consecutive' do
-    #   expect(@board.valid_coordinate("F44")).to eq(false)
-    # end
+    it 'returns false duplicate coordinates provided' do
+      expect(@board.valid_placement?(@tug_boat,["A1", "A1"])).to eq(false)
+    end
     # it 'returns false coordinates are diagonal' do
     #   expect(@board.valid_coordinate("F44")).to eq(false)
     # end
