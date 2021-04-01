@@ -70,9 +70,10 @@ RSpec.describe Board do
       @board.place(@cruiser, ["A0", "A1", "A2"])
       expect(@board.cells[:A2].ship).to eq(nil)
     end
-    # it 'does not update the cells ship if placement is invalid' do
-    #
-    # end
+    it 'does not update the cells ship if placement is invalid' do
+      @board.place(@cruiser, ["A4", "A1", "A2"])
+      expect(@board.cells[:A2].ship).to eq(nil)
+    end
     # it 'updates the cells ship to the placed ship' do
     #
     # end
