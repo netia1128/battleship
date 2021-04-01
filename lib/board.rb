@@ -27,10 +27,6 @@ class Board
     @proposed_ship = nil
   end
 
-  def valid_coordinate?(coordinate)
-    @cells.keys.to_a.include? coordinate.to_sym
-  end
-
   # Should we take #coordinates_not_empty out of #valid_placement?
   def valid_placement?(ship, coordinates)
     @user_coordinates = coordinates
@@ -47,6 +43,12 @@ class Board
       return false
     end
   end
+
+  def valid_coordinate?(coordinate)
+    @cells.keys.to_a.include? coordinate.to_sym
+  end
+
+#create a valid_length? helper method
 
   def coordinates_not_empty?
     @user_coordinates.each do |coordinate|
@@ -98,7 +100,8 @@ class Board
     coordinates.each do |coordinate|
       if !valid_coordinate?(coordinate)
         # TODO call the error message here
-        # exit
+        # exit or break or return with no value
+          # look into ruby error raising if you want to be fancy
         return false
       end
     end
@@ -113,5 +116,37 @@ class Board
     coordinates.each do |coordinate|
       @cells[coordinate.to_sym].place_ship(ship)
     end
+  end
+
+  def render(show_ships = false)
+    count = 0
+    array = []
+    string = ""
+    @cells.each do |key, cell|
+      array << cell.status
+    end
+    board_dimension.times do
+      string += "#{@cells.keys[count].to_s[0]} "
+      board_dimension.times do
+        string += "#{array[count]} "
+        count += 1
+      end
+      string += "\n"
+    end
+    top_row + string
+  end
+
+  def top_row
+    return "  #{board_numbers.join(' ')} \n"
+  end
+
+  def board_dimension
+    Math.sqrt(@cells.count).to_i
+  end
+
+  # hash.each do |key, value|
+
+  def board_numbers
+    (1..board_dimension).to_a
   end
 end

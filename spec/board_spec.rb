@@ -87,4 +87,9 @@ RSpec.describe Board do
       expect(@board.cells[:A3].status).to eq("S")
     end
   end
+  describe '#render' do
+    it 'renders the starting board with all "."s' do
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+  end
 end
