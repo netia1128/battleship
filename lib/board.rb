@@ -31,8 +31,9 @@ class Board
     @cells.keys.to_a.include? coordinate.to_sym
   end
 
-  def valid_placement?(ship, array)
-    @user_coordinates = array
+  # Should we take #coordinates_not_empty out of #valid_placement?
+  def valid_placement?(ship, coordinates)
+    @user_coordinates = coordinates
     @proposed_ship = ship
     # Does this burn your eyes?
     if coordinates_match_ship_length? || no_duplicate_coordinates? || !coordinates_not_empty?
@@ -91,5 +92,17 @@ class Board
 
   def is_vertical?
     user_coordinate_numbers.uniq.count == 1
+  end
+
+  def place(ship, coordinates)
+    # want to change each coordinate's ::ship
+    # maybe using the cell's place_ship method?
+      # This would be to update the status to "S"
+    coordinates.each do |coordinate|
+      if !valid_coordinate?(coordinate)
+        exit
+        # return false
+      end
+    end
   end
 end
