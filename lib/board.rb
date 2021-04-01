@@ -24,16 +24,24 @@ class Board
     @player_provided_array = []
   end
 
-  def valid_coordinate(coordinate)
+  def valid_coordinate?(coordinate)
     @cells.keys.to_a.include? coordinate.to_sym
   end
 
   def valid_placement?(ship, array)
+
+    @player_provided_array = array
     #check if ship length = array length
     if array.count != ship.length || array.uniq.count != array.length
       return false
     end
-    @player_provided_array = array
+
+    @player_provided_array.each do |coordinate|
+      if @cells[coordinate.to_sym].empty? == false
+        return false
+      end
+    end
+
     split_player_coordinates
     if is_horizontal?
       if (create_array_of_numbers.sort.last - create_array_of_numbers.sort.first) + 1 == ship.length
@@ -50,6 +58,7 @@ class Board
     else
       return false
     end
+
   end
 
       def split_player_coordinates
