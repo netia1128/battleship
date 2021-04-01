@@ -95,13 +95,13 @@ RSpec.describe Board do
       @board.place(@cruiser, ["A3", "A1", "A2"])
       expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
     end
-    # it 'renders the board with ships shown if show_ships = true' do
-    #   @board.place(@cruiser, ["A3", "A1", "A2"])
-    #   expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
-    # end
-    # it 'renders the board with M where applicable' do
-    #   @board.place(@cruiser, ["A3", "A1", "A2"])
-    #   expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    it 'renders the board with ships shown if show_ships = true' do
+      @board.place(@cruiser, ["A3", "A1", "A2"])
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+    it 'renders the board with M where applicable' do
+      @board.cells[:A4].fire_upon
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . M \nB . . . . \nC . . . . \nD . . . . \n")
     end
   end
 end
