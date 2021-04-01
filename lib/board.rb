@@ -105,7 +105,7 @@ class Board
     if !valid_placement?(ship, coordinates)
       # TODO call the error message here
       # exit
-      false
+      return false
     end
     # want to change each coordinate's ::ship
     # maybe using the cell's place_ship method?

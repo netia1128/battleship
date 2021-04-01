@@ -75,9 +75,8 @@ RSpec.describe Board do
       expect(@board.cells[:A2].ship).to eq(nil)
     end
     it 'updates the cell\'s ship to the placed ship' do
-      board_1 = Board.new
       @board.place(@cruiser, ["A3", "A1", "A2"])
-      expect(board_1.cells[:A2].ship).to eq(@cruiser)
+      expect(@board.cells[:A2].ship).to eq(@cruiser)
     end
     # it 'updates the cells status from . to S' do
     #
