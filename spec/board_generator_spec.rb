@@ -11,5 +11,9 @@ RSpec.describe BoardGenerator do
       board_generator = BoardGenerator.new(7)
       expect(board_generator.board_array).to eq([])
     end
+    it 'has an empty board hash by default' do
+      board_generator = BoardGenerator.new(7)
+      expect(board_generator.board_hash).to eq({})
+    end
   end
 end

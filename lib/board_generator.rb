@@ -1,15 +1,16 @@
 class BoardGenerator
-  attr_reader :board_array
+  attr_reader :board_array,
+              :board_hash
 
   def initialize(board_dimension)
     #pass in board dimensions and create hash of cells for the board
     @board_dimension = board_dimension
     @board_array = []
+    @board_hash = {}
   end
 
   def make_board_hash
     make_board_array
-    board_hash = Hash.new
     board_array.each do |coordinate|
       board_hash[coordinate.to_sym] = Cell.new(coordinate)
     end
