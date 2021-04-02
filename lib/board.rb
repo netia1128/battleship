@@ -21,24 +21,20 @@ class Board
       :D4 => Cell.new("D4")
     }
     @shots_available = @cells.keys
-    # Should we remove the user_coordinates instance variable
-    # or should we have a parameter throughout the class?
-    @user_coordinates = []
-    @proposed_ship = nil
   end
 
-  # Should we take #coordinates_not_empty out of #valid_placement?
   def valid_placement?(ship, coordinates)
-    @user_coordinates = coordinates
-    @proposed_ship = ship
-    # Does this burn your eyes?
-    if coordinates_match_ship_length? || no_duplicate_coordinates? || !coordinates_not_empty?
-      return false
-    end
-    if is_horizontal? && (user_coordinate_numbers.last - user_coordinate_numbers.first) + 1 == ship.length
-      return true
-    elsif is_vertical? && (user_coordinate_letters.last.ord - user_coordinate_letters.first.ord) + 1 == ship.length
-      return true
+    coordinates_match_ship_length?(coordinates, ship) &&
+    no_duplicate_coordinates?(coordinates) &&
+    coordinates_empty?(coordinates) &&
+    is_consecutive?(coordinates, ship)
+  end
+
+  def is_consecutive?(coordinates, ship)
+    if is_horizontal?(coordinates)
+      return ((user_coordinate_numbers(coordinates).last - user_coordinate_numbers(coordinates).first) + 1 == ship.length)
+    elsif is_vertical?(coordinates)
+      return ((user_coordinate_letters(coordinates).last.ord - user_coordinate_letters(coordinates).first.ord) + 1 == ship.length)
     else
       return false
     end
@@ -48,52 +44,44 @@ class Board
     @cells.keys.to_a.include? coordinate.to_sym
   end
 
-#create a valid_length? helper method
-
-  def coordinates_not_empty?
-    @user_coordinates.each do |coordinate|
-      if !@cells[coordinate.to_sym].empty?
-        return false
-      end
+  def coordinates_empty?(coordinates)
+    coordinates.each do |coordinate|
+      @cells[coordinate.to_sym].empty?
     end
   end
 
-  def coordinates_match_ship_length?
-    if @user_coordinates.count != @proposed_ship.length
-      return false
-    end
+  def coordinates_match_ship_length?(coordinates, ship)
+    coordinates.count == ship.length
   end
 
-  def no_duplicate_coordinates?
-    if @user_coordinates.uniq.count != @user_coordinates.length
-      return false
-    end
+  def no_duplicate_coordinates?(coordinates)
+    coordinates.uniq.count == coordinates.length
   end
 
-  def split_user_coordinates
-    @user_coordinates.map do |coordinate|
+  def split_user_coordinates(coordinates)
+    coordinates.map do |coordinate|
       coordinate.split("")
     end
   end
 
-  def user_coordinate_numbers
-    split_user_coordinates.map do |sub_arr|
+  def user_coordinate_numbers(coordinates)
+    split_user_coordinates(coordinates).map do |sub_arr|
       sub_arr[1].to_i
     end.sort
   end
 
-  def user_coordinate_letters
-    split_user_coordinates.map do |sub_arr|
+  def user_coordinate_letters(coordinates)
+    split_user_coordinates(coordinates).map do |sub_arr|
       sub_arr[0]
     end.sort
   end
 
-  def is_horizontal?
-    user_coordinate_letters.uniq.count == 1
+  def is_horizontal?(coordinates)
+    user_coordinate_letters(coordinates).uniq.count == 1
   end
 
-  def is_vertical?
-    user_coordinate_numbers.uniq.count == 1
+  def is_vertical?(coordinates)
+    user_coordinate_numbers(coordinates).uniq.count == 1
   end
 
   def place(ship, coordinates)
@@ -110,30 +98,23 @@ class Board
       # exit
       return false
     end
-    # want to change each coordinate's ::ship
-    # maybe using the cell's place_ship method?
-    # This would be to update the status to "S"
     coordinates.each do |coordinate|
       @cells[coordinate.to_sym].place_ship(ship)
     end
   end
 
   def render(show_ships = false)
-    count = 0
-    array = []
-    string = ""
-    @cells.each do |key, cell|
-      array << cell.render(show_ships)
-    end
-    board_dimension.times do
-      string += "#{@cells.keys[count].to_s[0]} "
-      board_dimension.times do
-        string += "#{array[count]} "
-        count += 1
+    string = top_row
+    @cells.each do |key, value|
+      if key.to_s[1] == "1"
+        string += "#{key.to_s[0]} #{value.render(show_ships)} "
+      elsif key.to_s[1].to_i == board_dimension
+        string += "#{value.render(show_ships)} \n"
+      else
+       string += "#{value.render(show_ships)} "
       end
-      string += "\n"
     end
-    top_row + string
+    string
   end
 
   def top_row
@@ -147,16 +128,4 @@ class Board
   def board_numbers
     (1..board_dimension).to_a
   end
-
-  # def fire_upon(coordinate)
-  #   @cells[coordinate.to_sym].fire_upon
-  #   if !@cells[coordinate.to_sym].ship.nil?
-  #     @cells.values.each do |cell|
-  #       if cell.ship == @cells[coordinate.to_sym].ship
-  #         puts @cells[coordinate.to_sym]
-  #       end
-  #     end
-  #   end
-  # end
-
 end
