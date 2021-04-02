@@ -21,12 +21,9 @@ class Board
       :D4 => Cell.new("D4")
     }
     @shots_available = @cells.keys
-    # Should we remove the user_coordinates instance variable
-    # or should we have a parameter throughout the class?
   end
 
   def valid_placement?(ship, coordinates)
-    # Does this burn your eyes?
     if coordinates_match_ship_length?(coordinates, ship) ||
        no_duplicate_coordinates?(coordinates) ||
        coordinates_not_empty?(coordinates) ||
@@ -50,8 +47,6 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.keys.to_a.include? coordinate.to_sym
   end
-
-#create a valid_length? helper method
 
   def coordinates_not_empty?(coordinates)
     coordinates.each do |coordinate|
