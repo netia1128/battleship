@@ -108,5 +108,12 @@ RSpec.describe Board do
       @board.cells[:A1].fire_upon
       expect(@board.render).to eq("  1 2 3 4 \nA H . . . \nB . . . . \nC . . . . \nD . . . . \n")
     end
+    it 'renders the board with X where applicable' do
+      @board.place(@cruiser, ["A3", "A1", "A2"])
+      @board.cells[:A1].fire_upon
+      @board.cells[:A2].fire_upon
+      @board.cells[:A3].fire_upon
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
   end
 end

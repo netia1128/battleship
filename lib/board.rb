@@ -144,9 +144,19 @@ class Board
     Math.sqrt(@cells.count).to_i
   end
 
-  # hash.each do |key, value|
-
   def board_numbers
     (1..board_dimension).to_a
   end
+
+  # def fire_upon(coordinate)
+  #   @cells[coordinate.to_sym].fire_upon
+  #   if !@cells[coordinate.to_sym].ship.nil?
+  #     @cells.values.each do |cell|
+  #       if cell.ship == @cells[coordinate.to_sym].ship
+  #         puts @cells[coordinate.to_sym]
+  #       end
+  #     end
+  #   end
+  # end
+
 end
