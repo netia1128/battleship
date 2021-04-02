@@ -16,7 +16,13 @@ Netia's best strength for this project is her lack of shame, which means she has
 We feel like our strengths mesh very well together. Brant's strength will assist us in getting the ball rolling on moving towards a solution, and when we get stuck, Netia's ability to reach out for help can kick in to get us unstuck.  
 
 **Schedule Expectations (When are we available to work together and individually? What constraints do we have? Make sure to discuss the remote questions above in regards to this section):**  
-Brant has a baby (Lawrence) that is awake from 6:00 AM to 6:30 PM MST. He would like to see his son everyday, at least for a little while. His wife also goes to bed at 9:30 MST, so it's best if our paired-coding sessions are over by then. Netia has scheduled meetings on Tuesday and Wednesday afternoons around 5:00. We both agree that it would be better to "front load" time spent on this project, so we will just plan each day to spend as much time as possible working on this project.  
+Brant has a baby (Lawrence) that is awake from 6:00 AM to 6:30 PM MST. He would like to see his son everyday, at least for 15 minutes between 4:00 and 6:30. His wife also goes to bed at 9:00 MST, so it's best if our paired-coding sessions are over by then. Netia has scheduled meetings on Tuesday and Wednesday afternoons around 5:00. We both agree that it would be better to "front load" time spent on this project, so we will just plan each day to spend as much time as possible working on this project.
+
+- Friday - Brant's friends in the park
+- Saturday - Let's meet at 9:00 AM MST; Netia's friends in the park
+- Sunday - Easters
+- Monday - Brant's wife's birthday
+- Tuesday - Panda baby fun time
 
 **Communication Expectations (How and often will we communicate? How do we keep lines of communication open? How will we make decisions as a team? How will we communicate about our emotional and mental well-being with each other?):**  
 We will communicate via slack as often as needed. We both like brainstorming to arrive at decisions. We will talk through any issues that arise, including any related to emotional or mental well-being.  
@@ -29,7 +35,7 @@ We will approach this in "ping pong" style, taking turns indiscriminately to dev
 
 **Workflow Expectations (Git workflow/Tools/Code Review/Reviewing Pull Requests/Debugging and Problem-solving Techniques):**   
 - We will do a new git commit for every test.
-- We will do a new branch/pull request for each sizeable block of code (typically each method).
+- We will do a new branch/pull request for each sizeable block of code (typically each CEO method).
 - We will be working on our code together, so we will work through issues together as they arise.
 
 **Pomodoro Break Schedule:**  
@@ -46,3 +52,15 @@ Github and Excel
 
 **Day 1 Agenda:**  
 Complete DTR, create a project plan, and start coding.
+
+### Re-DTR
+
+**Things that are going well**
+- Good ping-pong
+- Netia's detail oriented brain gives us direction and efficiency
+- Brant's math brain is spectacular 
+
+**Things to improve**
+- Netia will slow Brant down to get on the same brain wave
+- Brant will not be so polite
+- Brant will finish his thought before relenting to Netia
