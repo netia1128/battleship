@@ -30,6 +30,17 @@ class Board
     is_consecutive?(coordinates, ship)
   end
 
+  # def is_consecutive?(coordinates, ship)
+  #   if
+  #     ((user_coordinate_numbers(coordinates).last - user_coordinate_numbers(coordinates).first) + 1 == ship.length) ||
+  #     ((user_coordinate_letters(coordinates).last.ord - user_coordinate_letters(coordinates).first.ord) + 1 == ship.length)
+  #     return true
+  #   else
+  #     return false
+  #   end
+  #
+  # end
+
   def is_consecutive?(coordinates, ship)
     if is_horizontal?(coordinates)
       return ((user_coordinate_numbers(coordinates).last - user_coordinate_numbers(coordinates).first) + 1 == ship.length)
