@@ -8,7 +8,6 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    # require 'pry'; binding.pry
     coordinates_match_ship_length?(coordinates, ship) &&
     no_duplicate_coordinates?(coordinates) &&
     coordinates_empty?(coordinates) &&
@@ -72,15 +71,10 @@ class Board
   def place(ship, coordinates)
     coordinates.each do |coordinate|
       if !valid_coordinate?(coordinate)
-        # TODO call the error message here
-        # exit or break or return with no value
-          # look into ruby error raising if you want to be fancy
         return false
       end
     end
     if !valid_placement?(ship, coordinates)
-      # TODO call the error message here
-      # exit
       return false
     end
     coordinates.each do |coordinate|
@@ -93,7 +87,7 @@ class Board
     @cells.each do |key, value|
       if key.to_s[1] == "1"
         string += "#{key.to_s[0]} #{value.render(show_ships)} "
-      elsif key.to_s[1].to_i == board_dimension
+      elsif key.to_s[1].to_i == @board_dimension
         string += "#{value.render(show_ships)} \n"
       else
        string += "#{value.render(show_ships)} "
@@ -106,11 +100,7 @@ class Board
     return "  #{board_numbers.join(' ')} \n"
   end
 
-  def board_dimension
-    Math.sqrt(@cells.count).to_i
-  end
-
   def board_numbers
-    (1..board_dimension).to_a
+    (1..@board_dimension).to_a
   end
 end
