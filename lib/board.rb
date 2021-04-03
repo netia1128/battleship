@@ -4,45 +4,16 @@ class Board
   def initialize(board_hash, board_dimension)
     @cells = board_hash
     @board_dimension = board_dimension
-    # @cells = {
-    #   :A1 => Cell.new("A1"),
-    #   :A2 => Cell.new("A2"),
-    #   :A3 => Cell.new("A3"),
-    #   :A4 => Cell.new("A4"),
-    #   :B1 => Cell.new("B1"),
-    #   :B2 => Cell.new("B2"),
-    #   :B3 => Cell.new("B3"),
-    #   :B4 => Cell.new("B4"),
-    #   :C1 => Cell.new("C1"),
-    #   :C2 => Cell.new("C2"),
-    #   :C3 => Cell.new("C3"),
-    #   :C4 => Cell.new("C4"),
-    #   :D1 => Cell.new("D1"),
-    #   :D2 => Cell.new("D2"),
-    #   :D3 => Cell.new("D3"),
-    #   :D4 => Cell.new("D4")
-    # }
     @shots_available = @cells.keys
-    require 'pry'; binding.pry
   end
 
   def valid_placement?(ship, coordinates)
+    # require 'pry'; binding.pry
     coordinates_match_ship_length?(coordinates, ship) &&
     no_duplicate_coordinates?(coordinates) &&
     coordinates_empty?(coordinates) &&
     is_consecutive?(coordinates, ship)
   end
-
-  # def is_consecutive?(coordinates, ship)
-  #   if
-  #     ((user_coordinate_numbers(coordinates).last - user_coordinate_numbers(coordinates).first) + 1 == ship.length) ||
-  #     ((user_coordinate_letters(coordinates).last.ord - user_coordinate_letters(coordinates).first.ord) + 1 == ship.length)
-  #     return true
-  #   else
-  #     return false
-  #   end
-  #
-  # end
 
   def is_consecutive?(coordinates, ship)
     if is_horizontal?(coordinates)
@@ -59,7 +30,7 @@ class Board
   end
 
   def coordinates_empty?(coordinates)
-    coordinates.each do |coordinate|
+    coordinates.all? do |coordinate|
       @cells[coordinate.to_sym].empty?
     end
   end

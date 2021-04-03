@@ -11,7 +11,7 @@ class BoardGenerator
     @board_array = []
     @board_hash = {}
     make_board_hash
-    @board = Board.new(board_hash, board_dimension)
+    # @board = Board.new(board_hash, board_dimension)
   end
 
   def make_board_hash
