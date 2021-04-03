@@ -25,5 +25,11 @@ RSpec.describe Player do
       expect(@computron.ships.count).to eq(3)
     end
   end
+  describe '#try_right' do
+    it 'returns a proposed array the same size as the given ship' do
+      # @computron.try_right("B1")
+      expect(@computron.try_right("B1").count).to eq(3)
+    end
+  end
 
 end
