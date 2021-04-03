@@ -1,6 +1,6 @@
-require_relative 'ship'
 require_relative 'board_generator'
 require_relative 'board'
+require_relative 'ship'
 
 class Player
   attr_reader :board_generator,
@@ -25,40 +25,36 @@ class Player
   # end
 
   def computron_placement
-    # require 'pry'; binding.pry
-
-    proposed_coordinate = @shots_available.sample
-
-    board.place(@ships[0], try("D4"))
-    # board.place(@ships[0], try(proposed_coordinate))
-    puts @board.render(true)
-      #try left and if false
-        #try up if false
-          #try down false
-
-    #try to place it
-    # puts board.place(@ships[0], proposed_array)
-    # puts proposed_array
-    # puts @board.render(true)
+    ships.each do |ship|
+      board.place(ship, try(ship))
+    end
   end
 
-  def try(original_coordinate)
-    proposed_coordinate_index =  @shots_available.index(proposed_coordinate)
-    proposed_array = [proposed_coordinate]
-    movement_variable = [1, @board_dimension, -1, (@board_dimension * -1)]
-    proposed_coordinate = original_coordinate
-    until board.place(@ships[0], proposed_array) != false
-      proposed_array = [original_coordinate]
-      proposed_coordinate_index = @shots_available.index(original_coordinate)
-      until proposed_array.count == @ships[0].length do
-        proposed_coordinate_index += movement_variable[0]
-        proposed_coordinate = @shots_available[proposed_coordinate_index]
-        proposed_array << proposed_coordinate
-      end
-      movement_variable.shift
-      puts proposed_array
+  def try(ship)
+    # original_coordinate = @shots_available.sample
+    original_coordinate = "A1"
+    until @board.coordinates_empty?([original_coordinate])
+      original_coordinate = @shots_available.sample
     end
-    proposed_array
+
+    original_coordinate_index = @shots_available.index(original_coordinate)
+    movement_variable = [1, @board_dimension, -1, (@board_dimension * -1)]
+    wip_array = [original_coordinate]
+
+    until board.place(ship, wip_array) != false
+      wip_coordinate = original_coordinate
+      wip_coordinate_index =  original_coordinate_index
+      wip_array = [original_coordinate]
+      wip_movement_variable = movement_variable.sample
+      until wip_array.count == ship.length do
+        wip_coordinate_index += wip_movement_variable
+        wip_coordinate = @shots_available[wip_coordinate_index]
+        wip_array << wip_coordinate
+      end
+      movement_variable.delete(wip_movement_variable)
+    end
+
+    wip_array
   end
 
 end

@@ -29,13 +29,15 @@ class Game
   def player_information
     puts "*******************"
     puts "What is your name?"
-    name = gets.chomp
+    name = "Bob"
+    # name = gets.chomp
     puts "Hi #{name}. " +
     "My name is Computron. I will be your computer opponent."
     puts "To start, we will create a square board to play with.\n" +
     "Your board can be anywhere between 4 and 9 cells wide.\n" +
     "How many cells would you like in each row?"
-    board_dimension = gets.chomp.to_i
+    # board_dimension = gets.chomp.to_i
+    board_dimension = 4
     until ((4..9).to_a.include? board_dimension)
       puts "Sorry #{name} that is not a valid board size.\n" +
       "Please choose a board size between 4 and 9 cells wide."

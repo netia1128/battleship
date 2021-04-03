@@ -8,6 +8,7 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
+    # require 'pry'; binding.pry
     coordinates_match_ship_length?(coordinates, ship) &&
     no_duplicate_coordinates?(coordinates) &&
     coordinates_empty?(coordinates) &&
@@ -29,7 +30,7 @@ class Board
   end
 
   def coordinates_empty?(coordinates)
-    coordinates.each do |coordinate|
+    coordinates.all? do |coordinate|
       @cells[coordinate.to_sym].empty?
     end
   end

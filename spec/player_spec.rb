@@ -2,6 +2,7 @@ require './lib/board_generator'
 require './lib/player'
 require './lib/board'
 require './lib/ship'
+require './lib/cell'
 
 
 RSpec.describe Player do
@@ -25,11 +26,19 @@ RSpec.describe Player do
       expect(@computron.ships.count).to eq(3)
     end
   end
-  describe '#try_right' do
+  describe '#try' do
     it 'returns a proposed array the same size as the given ship' do
-      # @computron.try_right("B1")
-      expect(@computron.try_right("B1").count).to eq(3)
+      destroyer = Ship.new("Destroyer", 4)
+      expect(@computron.try(destroyer).count).to eq(4)
     end
   end
-
+  describe '#computron_placement' do
+    it 'by default chages the status of 6 cells to S' do
+      @computron.computron_placement
+      count_of_s = @computron.board.cells.find_all do |key, cell|
+                    cell.status == 'S'
+                   end.count
+      expect(count_of_s).to eq(6)
+    end
+  end
 end
