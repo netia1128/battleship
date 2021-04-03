@@ -29,9 +29,9 @@ class Player
 
     proposed_coordinate = @shots_available.sample
 
-    if board.place(@ships[0], try_right(proposed_coordinate)) == false
-      puts @board.render(true)
-    end
+    board.place(@ships[0], try("D4"))
+    # board.place(@ships[0], try(proposed_coordinate))
+    puts @board.render(true)
       #try left and if false
         #try up if false
           #try down false
@@ -42,17 +42,22 @@ class Player
     # puts @board.render(true)
   end
 
-  def try_right(proposed_coordinate)
-        # require 'pry'; binding.pry
+  def try(original_coordinate)
     proposed_coordinate_index =  @shots_available.index(proposed_coordinate)
     proposed_array = [proposed_coordinate]
-
-    until proposed_array.count == @ships[0].length do
-      proposed_coordinate_index +=1
-      proposed_coordinate = @shots_available[proposed_coordinate_index]
-      proposed_array << proposed_coordinate
+    movement_variable = [1, @board_dimension, -1, (@board_dimension * -1)]
+    proposed_coordinate = original_coordinate
+    until board.place(@ships[0], proposed_array) != false
+      proposed_array = [original_coordinate]
+      proposed_coordinate_index = @shots_available.index(original_coordinate)
+      until proposed_array.count == @ships[0].length do
+        proposed_coordinate_index += movement_variable[0]
+        proposed_coordinate = @shots_available[proposed_coordinate_index]
+        proposed_array << proposed_coordinate
+      end
+      movement_variable.shift
+      puts proposed_array
     end
-    puts proposed_array
     proposed_array
   end
 
