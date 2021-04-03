@@ -1,3 +1,6 @@
+require_relative 'cell'
+require_relative 'board'
+
 class BoardGenerator
   attr_reader :board_array,
               :board_hash
@@ -7,6 +10,8 @@ class BoardGenerator
     @board_dimension = board_dimension
     @board_array = []
     @board_hash = {}
+    make_board_hash
+    @board = Board.new(board_hash, board_dimension)
   end
 
   def make_board_hash
@@ -33,3 +38,6 @@ class BoardGenerator
     end
   end
 end
+
+## board = Board.new(board_hash, board_dimension)
+## cell_hash = BoardGenerator.new(board_dimension)
