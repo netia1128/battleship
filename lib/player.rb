@@ -5,7 +5,8 @@ require_relative 'ship'
 class Player
   attr_reader :board_generator,
               :board,
-              :ships
+              :ships,
+              :name
 
   def initialize(name, board_dimension)
     @name = name

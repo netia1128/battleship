@@ -27,7 +27,7 @@ class Game
   end
 
   def player_information
-    puts "*******************"
+    puts "*********************************************************"
     puts "What is your name?"
     name = "Bob"
     # name = gets.chomp
@@ -47,12 +47,19 @@ class Game
     " by #{board_dimension} board."
     @player = Player.new(name, board_dimension)
     @computron = Player.new("Computron", board_dimension)
-    computron_placement
+    ship_placement
     # require 'pry'; binding.pry
   end
 
-  def computron_placement
+  def ship_placement
     @computron.computron_placement
+    puts "*********************************************************"
+    puts "OK #{@player.name}, it's time to place ships.\n" +
+    "We each have three ships.\n" +
+    "The Cruiser, which is three cells long.\n" +
+    "The Submarine, which is two cells long.\n" +
+    "The Tug Boat, whic is one cell.\n" +
+    "I have already placed my ships. Now it's your turn."
   end
 
 end
