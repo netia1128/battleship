@@ -47,11 +47,11 @@ class Game
     " by #{board_dimension} board."
     @player = Player.new(name, board_dimension)
     @computron = Player.new("Computron", board_dimension)
-    ship_placement
+    ship_placement_statement
     # require 'pry'; binding.pry
   end
 
-  def ship_placement
+  def ship_placement_statement
     @computron.computron_placement
     puts "*********************************************************"
     puts "OK #{@player.name}, it's time to place ships.\n" +
@@ -60,6 +60,46 @@ class Game
     "The Submarine, which is two cells long.\n" +
     "The Tug Boat, whic is one cell.\n" +
     "I have already placed my ships. Now it's your turn."
+    ship_placement
   end
+
+  def ship_placement
+    puts "*********************************************************"
+    puts "Let's start. Here is your board: \n"
+    puts @player.board.render(true)
+    puts "You will choose cells to put the ships in.\n" +
+    "Please provide the coordinate of each cell" +
+    " with just a space in between.\n" +
+    "For example: A1 A2 A3\n" +
+    "\n"
+    @player.ships.each do |ship|
+      puts "We are now placing the #{ship.name}.\n" +
+      "The #{ship.name} is #{ship.length} cells long.\n" +
+      "Please provide #{ship.length} cells:"
+      ship_placement_evaluation(ship)
+      puts @player.board.render(true)
+    end
+  end
+
+def ship_placement_evaluation(ship)
+  user_coordinates = gets.chomp.upcase.split(" ")
+  until (@player.board.place(ship, user_coordinates)) != false
+    puts "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    puts "\nSorry #{@player.name} " +
+    "Your placement is not valid.\n" +
+    "To have a valid placement all of the following must be true:\n" +
+    "- Please provide number of coordinates equal to ship length\n" +
+    "- Your coordinates must be consecuitive\n" +
+    "- Your coordinates must run horizontally or vertically\n" +
+    "- You cannot already have a ship in a proposed coordinate\n" +
+    "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
+    "\n" +
+    "Please try again.\n"
+    puts @player.board.render(true)
+    user_coordinates = gets.chomp.upcase.split(" ")
+  end
+  @player.board.place(@player.ships[0], user_coordinates)
+  puts ""
+end
 
 end
