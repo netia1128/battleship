@@ -4,7 +4,8 @@ require_relative 'board'
 
 class Player
   attr_reader :board_generator,
-              :board
+              :board,
+              :ships
 
   def initialize(name, board_dimension)
     @name = name
@@ -25,9 +26,6 @@ class Player
   def computron_placement
     @shots_available = @board_generator.board_array
     # require 'pry'; binding.pry
-    proposed_coordinate = @shots_available.sample
-    proposed_coordinate_index = @shots_available.index(@shots_available.sample)
-    proposed_array = [proposed_coordinate]
 
     #start a random array
     proposed_coordinate = @shots_available.sample

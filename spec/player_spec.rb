@@ -21,6 +21,9 @@ RSpec.describe Player do
     it 'creates an instance of a Board' do
       expect(@computron.board).to be_an_instance_of(Board)
     end
+    it 'creates three ships' do
+      expect(@computron.ships.count).to eq(3)
+    end
   end
 
 end
