@@ -1,6 +1,13 @@
 require_relative 'player'
 
 class Game
+  attr_reader :player
+              :computron
+
+  def initialize
+    @player = ""
+    @computron = ""
+  end
 
   def main_menu_statement
     puts "Welcome to Battleship!"
@@ -19,8 +26,6 @@ class Game
     puts "Thanks for playing"
   end
 
-
-
   def player_information
     puts "*******************"
     puts "What is your name?"
@@ -38,8 +43,14 @@ class Game
     end
     puts "Great! we will start with a #{board_dimension}" +
     " by #{board_dimension} board."
-    player = Player.new(name, board_dimension)
-    computron = Player.new("Computron", board_dimension)
+    @player = Player.new(name, board_dimension)
+    @computron = Player.new("Computron", board_dimension)
+    computron_placement
+    # require 'pry'; binding.pry
+  end
+
+  def computron_placement
+    @computron.computron_placement
   end
 
 end
