@@ -83,7 +83,7 @@ class Game
 
 def ship_placement_evaluation(ship)
   user_coordinates = gets.chomp.upcase.split(" ")
-  until (@player.board.place(ship, user_coordinates)) != false
+  until (@player.board.place(user_coordinates, ship)) != false
     puts "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     puts "\nSorry #{@player.name} " +
     "Your placement is not valid.\n" +
@@ -98,7 +98,7 @@ def ship_placement_evaluation(ship)
     puts @player.board.render(true)
     user_coordinates = gets.chomp.upcase.split(" ")
   end
-  @player.board.place(@player.ships[0], user_coordinates)
+  @player.board.place(user_coordinates, @player.ships[0])
   puts ""
 end
 
