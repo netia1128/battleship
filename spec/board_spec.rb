@@ -57,6 +57,18 @@ RSpec.describe Board do
     it 'returns true if the coordinates are horizontal and consecutive' do
       expect(@board.is_consecutive?(["A1", "A2"], @submarine)).to eq(true)
     end
+    it 'returns true if the coordinates are vertical and consecutive' do
+      expect(@board.is_consecutive?(["A1", "B1"], @submarine)).to eq(true)
+    end
+    it 'returns false if the coordinates are vertical but not consecutive' do
+      expect(@board.is_consecutive?(["A1", "C1"], @submarine)).to eq(false)
+    end
+    it 'returns false if the coordinates are horizontal but not consecutive' do
+      expect(@board.is_consecutive?(["A1", "A3"], @submarine)).to eq(false)
+    end
+    it 'returns false if the coordinates aren\'t horizontal or vertical' do
+      expect(@board.is_consecutive?(["A1", "D3"], @submarine)).to eq(false)
+    end
   end
   describe '#valid_coordinate?' do
     it 'returns true if coordinate on the board' do
