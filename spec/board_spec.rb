@@ -87,6 +87,14 @@ RSpec.describe Board do
       expect(@board.coordinates_empty?(["A1", "A2"])).to eq(false)
     end
   end
+  describe 'coordinates_match_ship_length?' do
+    it 'returns false if the number of coordinates don\'t match ship length' do
+      expect(@board.coordinates_match_ship_length?(["A1", "B1"], @cruiser)).to eq(false)
+    end
+    it 'returns true if the number of coordinates match ship length' do
+      expect(@board.coordinates_match_ship_length?(["A1", "B1"], @submarine)).to eq(true)
+    end
+  end
   describe '#place' do
     it 'does not update the status of a cell if coordinate is invalid' do
       @board.place(["A0", "A1", "A2"], @cruiser)
