@@ -31,15 +31,19 @@ class Game
 
   def player_information_statement
     system 'clear'
-    puts "What is your name?"
-    @name = gets.chomp
+    get_name_from_player
     system 'clear'
-    puts "Hi #{name}. " +
+    puts "Hi #{@name}. " +
     "My name is Computron. I will be your opponent.\n" +
     "To start, we will create a square board to play with.\n" +
     "Your board can be anywhere between 4 and 9 cells wide.\n" +
     "How many cells would you like in each row?"
     player_information_evaluation
+  end
+
+  def get_name_from_player
+    puts "What is your name?"
+    @name = gets.chomp
   end
 
   def player_information_evaluation
@@ -58,7 +62,7 @@ class Game
   def player_creation(board_dimension)
     @player = Player.new(@name, board_dimension)
     @computron = Player.new("Computron", board_dimension)
-    @computron.computron_placement
+    @computron.computron_ship_placement
   end
 
   def ship_placement_statement
@@ -99,7 +103,6 @@ class Game
       puts @player.board.render(true)
       blank_formatting_line
     end
-    @computron.computron_placement
     take_turn_statement
   end
 
@@ -144,7 +147,7 @@ def take_turn_statement
   puts "After we each take our turn, I will summarize what happened and update " +
   "the board as follows: \n" +
   "  - . represents a cell that has not been fired on yet\n" +
-  "  - S represents your ships (we cannot see each other\s ships)\n" +
+  "  - S represents your ships (we cannot see each others ships)\n" +
   "  - M represents a miss\n" +
   "  - H represents a hit\n" +
   "  - X represents a sunk ship \n"

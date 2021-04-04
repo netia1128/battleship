@@ -26,7 +26,7 @@ class Player
     @last_shot_coordinate = ''
   end
 
-  def computron_placement
+  def computron_ship_placement
     ships.each do |ship|
       board.place(try(ship), ship)
     end
@@ -73,8 +73,48 @@ class Player
   end
 
   def auto_shot_selection(difficulty = "easy")
+    if difficulty == "easy"
+      random_shot
+    end
+    # if difficulty == "hard"
+    #   # last_shot_coordinate needs an actual cell to evaluate this if statement
+    #   if @last_shot_coordinate == ""
+    #     random_shot
+    #     #break or exit? This is needed so it doesn't populate
+    #     # last_shot_coordinate and continue down to the next if statement
+    #     break
+    #   end
+    #   if @board.cells.[@last_shot_coordinate.to_sym].status == "H"
+    #     smart_shot
+    #     # check board cells for status = H and make array
+    #     # set last_shot_coordinate = array.first and re-enter smart_shot
+    #   else
+    #     random_shot
+  end
+
+  def random_shot
     @last_shot_coordinate = @shots_available.sample
     fire_upon(@last_shot_coordinate)
     @shots_available.delete @last_shot_coordinate
   end
+
+  # def smart_shot
+  #   pivot_point = @last_shot_coordinate
+  #   until @board.cells.[@last_shot_coordinate.to_sym].status = "X"
+  #     # - find the index of last_shot_coordinate within @board_generator.board_array.
+  #     # - increment by an element of this array:
+  #     #   [1, -1, board_dimension, -board_dimension]
+  #         # keep this element unchanged so we can either continue looking that
+  #         # many cells away. If next shot is M, reverse (element * -1) if possible)
+  #     # - see if this new coordinate is valid_coordinate && empty
+  #     # - fire and change the index by adding by an element of this array:
+  #     #   [1, -1, board_dimension, -board_dimension]
+  #     # - put bullet into chamber to be re-evaluated by until loop?
+  #     #   until array is empty?
+  #   end
+  #   # check board cells for status = H and make array
+  #   # set pivot_point = array.first and re-enter until loop
+  # end
+
+
 end
