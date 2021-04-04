@@ -1,12 +1,14 @@
 require_relative 'board_generator'
 require_relative 'board'
+require_relative 'game'
 require_relative 'ship'
 
 class Player
   attr_reader :board_generator,
               :board,
               :ships,
-              :name
+              :name,
+              :last_shot_coordinate
 
   def initialize(name, board_dimension)
     @name = name
@@ -19,6 +21,7 @@ class Player
     @ships = [@cruiser, @submarine, @tug_boat]
     #would you like this to be a helper method?
     @board = Board.new(@board_generator.make_board_hash, @board_dimension)
+    @last_shot_coordinate = ''
   end
 
   # def make_board
@@ -62,7 +65,6 @@ class Player
     if @board.valid_coordinate?(shot_coordinate)
       if !@board.cells[shot_coordinate.to_sym].fired_upon?
         @board.cells[shot_coordinate.to_sym].fire_upon
-        
       else
         return false
       end
@@ -72,8 +74,8 @@ class Player
   end
 
   def auto_shot_selection(difficulty = "easy")
-    shot_coordinate = @shots_available.sample
-    fire_upon(shot_coordinate)
-    @shots_available.delete shot_coordinate
+    @last_shot_coordinate = @shots_available.sample
+    fire_upon(@last_shot_coordinate)
+    @shots_available.delete @last_shot_coordinate
   end
 end

@@ -121,10 +121,13 @@ def take_turn_statement
 
   def take_turn
     until end_of_game?
+      puts ''
       puts '=============COMPUTER BOARD============='
       puts @computron.board.render
+      puts ''
       puts '==============PLAYER BOARD=============='
       puts @player.board.render(true)
+      puts ''
       puts "Please pick your coordinate.\n"
       take_turn_evaluation
     end
@@ -152,14 +155,37 @@ def take_turn_statement
     end
     @computron.fire_upon(shot_coordinate)
     @player.auto_shot_selection
-    shot_statement
+    system 'clear'
+    puts ''
+    shot_statement(shot_coordinate)
     # evaluation of shot placement
     # invalid shot statment
   end
 
-  # def shot_statement
-  #   put "You've"
-  # end
+  def shot_statement(shot_coordinate)
+    case @computron.board.cells[shot_coordinate.to_sym].status
+    when "M"
+      puts "You missed!"
+    when "H"
+      puts "You hit something!"
+    when "X"
+      puts "You sunk a ship!"
+    end
+    puts ''
+    case @player.board.cells[@player.last_shot_coordinate.to_sym].status
+    when "M"
+      puts "The computer took a shot and missed!"
+    when "H"
+      puts "The computer took a shot and hit something!"
+    when "X"
+      puts "The computer took a shot and sunk a ship!"
+    end
+    puts ' '
+    puts 'Time for the next turn!'
+    puts ''
+  end
+
+
 
   def end_of_game_statement
     puts "GAME OVER"

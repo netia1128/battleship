@@ -41,4 +41,10 @@ RSpec.describe Player do
       expect(count_of_s).to eq(6)
     end
   end
+  describe '#fire_upon' do
+    it 'returns false if player fires upon an invalid coordinate' do
+      @computron.fire_upon("A0")
+      expect(@computron.fire_upon("A0")).to eq(false)
+    end
+  end
 end
