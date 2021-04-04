@@ -41,4 +41,19 @@ RSpec.describe Player do
       expect(count_of_s).to eq(6)
     end
   end
+  describe '#fire_upon' do
+    it 'returns false if player fires upon an invalid coordinate' do
+      expect(@computron.fire_upon("A0")).to eq(false)
+    end
+    it 'returns false if player fires upon an already fired upon cell' do
+      @computron.fire_upon("A1")
+      expect(@computron.fire_upon("A1")).to eq(false)
+    end
+  end
+  describe '#auto_shot_selection' do
+    it 'populates last_shot_coordinate' do
+      @player.auto_shot_selection
+      expect(@player.last_shot_coordinate.length).to eq(2)
+    end
+  end
 end
