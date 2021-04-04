@@ -26,10 +26,6 @@ class Player
     @last_shot_coordinate = ''
   end
 
-  # def make_board
-  #   @board = Board.new(@board_generator.make_board_hash, @board_dimension)
-  # end
-
   def computron_placement
     ships.each do |ship|
       board.place(try(ship), ship)
@@ -63,14 +59,15 @@ class Player
   end
 
   def fire_upon(shot_coordinate)
-    # require 'pry'; binding.pry
     if @board.valid_coordinate?(shot_coordinate)
       if !@board.cells[shot_coordinate.to_sym].fired_upon?
         @board.cells[shot_coordinate.to_sym].fire_upon
       else
+        puts "fire upon issue"
         return false
       end
     else
+      puts "valid coordinate issue"
       return false
     end
   end
