@@ -1,12 +1,16 @@
 require_relative 'board_generator'
 require_relative 'board'
+require_relative 'game'
 require_relative 'ship'
 
 class Player
   attr_reader :board_generator,
               :board,
               :ships,
-              :name
+              :name,
+              :last_shot_coordinate
+
+### # QUESTION: is it worth putting IV in the attr_reader simply to be able to test them. Or is it worth making a helper method for this purpose?
 
   def initialize(name, board_dimension)
     @name = name
@@ -19,6 +23,7 @@ class Player
     @ships = [@cruiser, @submarine, @tug_boat]
     #would you like this to be a helper method?
     @board = Board.new(@board_generator.make_board_hash, @board_dimension)
+    @last_shot_coordinate = ''
   end
 
   # def make_board
@@ -32,8 +37,7 @@ class Player
   end
 
   def try(ship)
-    # original_coordinate = @shots_available.sample
-    original_coordinate = "A1"
+    original_coordinate = @shots_available.sample
     until @board.coordinates_empty?([original_coordinate])
       original_coordinate = @shots_available.sample
     end
@@ -58,4 +62,22 @@ class Player
     wip_array
   end
 
+  def fire_upon(shot_coordinate)
+    # require 'pry'; binding.pry
+    if @board.valid_coordinate?(shot_coordinate)
+      if !@board.cells[shot_coordinate.to_sym].fired_upon?
+        @board.cells[shot_coordinate.to_sym].fire_upon
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
+  def auto_shot_selection(difficulty = "easy")
+    @last_shot_coordinate = @shots_available.sample
+    fire_upon(@last_shot_coordinate)
+    @shots_available.delete @last_shot_coordinate
+  end
 end
