@@ -43,8 +43,11 @@ RSpec.describe Player do
   end
   describe '#fire_upon' do
     it 'returns false if player fires upon an invalid coordinate' do
-      @computron.fire_upon("A0")
       expect(@computron.fire_upon("A0")).to eq(false)
+    end
+    it 'returns false if player fires upon an already fired upon cell' do
+      @computron.fire_upon("A1")
+      expect(@computron.fire_upon("A1")).to eq(false)
     end
   end
 end
