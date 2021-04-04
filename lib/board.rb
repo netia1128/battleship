@@ -7,7 +7,7 @@ class Board
     @shots_available = @cells.keys
   end
 
-  def valid_placement?(ship, coordinates)
+  def valid_placement?(coordinates, ship)
     coordinates_match_ship_length?(coordinates, ship) &&
     no_duplicate_coordinates?(coordinates) &&
     coordinates_empty?(coordinates) &&
@@ -68,13 +68,13 @@ class Board
     user_coordinate_numbers(coordinates).uniq.count == 1
   end
 
-  def place(ship, coordinates)
+  def place(coordinates, ship)
     coordinates.each do |coordinate|
       if !valid_coordinate?(coordinate)
         return false
       end
     end
-    if !valid_placement?(ship, coordinates)
+    if !valid_placement?(coordinates, ship)
       return false
     end
     coordinates.each do |coordinate|

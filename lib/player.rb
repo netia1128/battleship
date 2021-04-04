@@ -27,7 +27,7 @@ class Player
 
   def computron_placement
     ships.each do |ship|
-      board.place(ship, try(ship))
+      board.place(try(ship), ship)
     end
   end
 
@@ -42,7 +42,7 @@ class Player
     movement_variable = [1, @board_dimension, -1, (@board_dimension * -1)]
     wip_array = [original_coordinate]
 
-    until board.place(ship, wip_array) != false
+    until board.place(wip_array, ship) != false
       wip_coordinate = original_coordinate
       wip_coordinate_index =  original_coordinate_index
       wip_array = [original_coordinate]
