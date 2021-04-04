@@ -24,7 +24,7 @@ class Cell
 
   def fire_upon
     if self.fired_upon?
-      exit
+      return false
     end
     if @status == "."
       @status = "M"

@@ -1,10 +1,9 @@
 class Board
-  attr_reader :cells,
-              :shots_available
+  attr_reader :cells
+
   def initialize(board_hash, board_dimension)
     @cells = board_hash
     @board_dimension = board_dimension
-    @shots_available = @cells.keys
   end
 
   def valid_placement?(coordinates, ship)
