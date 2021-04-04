@@ -32,8 +32,7 @@ class Player
   end
 
   def try(ship)
-    # original_coordinate = @shots_available.sample
-    original_coordinate = "A1"
+    original_coordinate = @shots_available.sample
     until @board.coordinates_empty?([original_coordinate])
       original_coordinate = @shots_available.sample
     end
@@ -58,4 +57,23 @@ class Player
     wip_array
   end
 
+  def fire_upon(shot_coordinate)
+    # require 'pry'; binding.pry
+    if @board.valid_coordinate?(shot_coordinate)
+      if !@board.cells[shot_coordinate.to_sym].fired_upon?
+        @board.cells[shot_coordinate.to_sym].fire_upon
+        
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
+  def auto_shot_selection(difficulty = "easy")
+    shot_coordinate = @shots_available.sample
+    fire_upon(shot_coordinate)
+    @shots_available.delete shot_coordinate
+  end
 end

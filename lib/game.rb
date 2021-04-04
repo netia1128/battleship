@@ -72,13 +72,15 @@ class Game
     " with just a space in between.\n" +
     "For example: A1 A2 A3\n" +
     "\n"
-    @player.ships.each do |ship|
-      puts "We are now placing the #{ship.name}.\n" +
-      "The #{ship.name} is #{ship.length} cells long.\n" +
-      "Please provide #{ship.length} cells:"
-      ship_placement_evaluation(ship)
-      puts @player.board.render(true)
-    end
+    # @player.ships.each do |ship|
+    #   puts "We are now placing the #{ship.name}.\n" +
+    #   "The #{ship.name} is #{ship.length} cells long.\n" +
+    #   "Please provide #{ship.length} cells:"
+    #   ship_placement_evaluation(ship)
+    #   puts @player.board.render(true)
+    # end
+    @player.computron_placement
+    take_turn_statement
   end
 
 def ship_placement_evaluation(ship)
@@ -102,4 +104,73 @@ def ship_placement_evaluation(ship)
   puts ""
 end
 
+def take_turn_statement
+  system 'clear'
+  puts 'Now let\'s play the game.'
+  # puts '=============COMPUTER BOARD============='
+  # puts @computron.board.render
+  # puts '==============PLAYER BOARD=============='
+  # puts @player.board.render(true)
+  puts "You will choose a cell on my board to fire upon.\n" +
+  "We will take turns until all of someone\'s ships have been sunk.\n" +
+  "For each turn provide the coordinate of the cell you wish to fire upon.\n" +
+  "For example: A1\n" +
+  "\n"
+  take_turn
+  end
+
+  def take_turn
+    until end_of_game?
+      puts '=============COMPUTER BOARD============='
+      puts @computron.board.render
+      puts '==============PLAYER BOARD=============='
+      puts @player.board.render(true)
+      puts "Please pick your coordinate.\n"
+      take_turn_evaluation
+    end
+    end_of_game_statement
+  end
+
+  def take_turn_evaluation
+    shot_coordinate = gets.chomp.upcase
+    until @computron.fire_upon(shot_coordinate) != false
+      system 'clear'
+      puts "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      puts "\nSorry #{@player.name} " +
+      "Your shot coordinate is not valid.\n" +
+      "To have a valid shot placement all of the following must be true:\n" +
+      "- Your coordinate must be on the board.\n" +
+      "- You cannot already have fired upon your proposed coordinate\n" +
+      "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
+      "\n"
+      puts '=============COMPUTER BOARD============='
+      puts @computron.board.render
+      puts '==============PLAYER BOARD=============='
+      puts @player.board.render(true)
+      puts "Please try again.\n"
+      shot_coordinate = gets.chomp.upcase
+    end
+    @computron.fire_upon(shot_coordinate)
+    @player.auto_shot_selection
+    shot_statement
+    # evaluation of shot placement
+    # invalid shot statment
+  end
+
+  # def shot_statement
+  #   put "You've"
+  # end
+
+  def end_of_game_statement
+    puts "GAME OVER"
+  end
+
+  def end_of_game?
+    @player.ships.all? do |ship|
+      ship.sunk?
+    end ||
+    @computron.ships.all? do |ship|
+      ship.sunk?
+    end
+  end
 end
