@@ -50,23 +50,6 @@ RSpec.describe Board do
       expect(@board.valid_placement?(["D4", "C4"], @submarine)).to eq(true)
     end
   end
-  describe '#valid_coordinate?' do
-    it 'returns true if coordinate on the board' do
-      expect(@board.valid_coordinate?("B4")).to eq(true)
-    end
-    it 'returns false if coordinate on the board' do
-      expect(@board.valid_coordinate?("F44")).to eq(false)
-    end
-  end
-  describe '#coordinates_empty?' do
-    it 'returns true if all cells are empty' do
-      expect(@board.coordinates_empty?(["A1", "A2"])).to eq(true)
-    end
-    it 'returns false if any cells are not empty' do
-      @board.place(["A1"], @tug_boat)
-      expect(@board.coordinates_empty?(["A1", "A2"])).to eq(false)
-    end
-  end
   describe '#place' do
     it 'does not update the status of a cell if coordinate is invalid' do
       @board.place(["A0", "A1", "A2"], @cruiser)
@@ -97,6 +80,23 @@ RSpec.describe Board do
       expect(@board.cells[:A3].status).to eq("S")
     end
   end
+  describe '#valid_coordinate?' do
+    it 'returns true if coordinate on the board' do
+      expect(@board.valid_coordinate?("B4")).to eq(true)
+    end
+    it 'returns false if coordinate on the board' do
+      expect(@board.valid_coordinate?("F44")).to eq(false)
+    end
+  end
+  describe '#coordinates_empty?' do
+    it 'returns true if all cells are empty' do
+      expect(@board.coordinates_empty?(["A1", "A2"])).to eq(true)
+    end
+    it 'returns false if any cells are not empty' do
+      @board.place(["A1"], @tug_boat)
+      expect(@board.coordinates_empty?(["A1", "A2"])).to eq(false)
+    end
+  end
   describe '#render' do
     it 'renders the starting board with all "."s' do
       expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
@@ -124,6 +124,11 @@ RSpec.describe Board do
       @board.cells[:A2].fire_upon
       @board.cells[:A3].fire_upon
       expect(@board.render(true)).to eq("  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+  end
+  describe '#top_row' do
+    it 'renders the top row of the board' do
+      expect(@board.top_row).to eq("  1 2 3 4 \n")
     end
   end
 end
