@@ -3,60 +3,47 @@ require_relative 'statement'
 
 class Game
   attr_reader :player,
-              :computron,
-              :name
+              :computron
 
   def initialize
     @player = ""
     @computron = ""
-    @name = ""
     @board_dimension
     @statement = Statement.new
   end
 
-  def main_menu_statement
-    puts "Welcome to Battleship!"
-    puts "Enter P to play or Q to quit"
-    input = gets.chomp.upcase
-    if input == "P"
-      player_information_statement
-    elsif input == "Q"
-      quit_game
+  def main_menu
+    @statement.print_to_terminal(@statement.main_menu)
+    @statement.get_user_input
+    if @statement.input == "P"
+      introductions
+    elsif @statement.input == "Q"
+      @statement.quit_game_statement
     else
-      main_menu_statement
+      print_to_terminal(@statement.main_menu)
     end
   end
 
-  def quit_game
-    puts "Thanks for playing"
-  end
-
-  def player_information_statement
+  def introductions
     system 'clear'
-    get_name_from_player
+    @statement.print_to_terminal(@statement.ask_name)
+    @statement.get_name
     system 'clear'
-    puts "Hi #{@name}. " +
-    "My name is Computron. I will be your opponent.\n" +
-    "To start, we will create a square board to play with.\n" +
-    "Your board can be anywhere between 4 and 9 cells wide.\n" +
-    "How many cells would you like in each row?"
-    player_information_evaluation
+    @statement.print_to_terminal(@statement.introduction)
+    get_board_dimensions
   end
 
-  def get_name_from_player
-    puts "What is your name?"
-    @name = gets.chomp
-    # @name = "Bob"
+  def get_board_dimensions
+    @statement.print_to_terminal(@statement.ask_board_dimension)
+    board_dimension = @statement.get_user_input.to_i
+    board_dimension_evaluation(board_dimension)
   end
 
-  def player_information_evaluation
-    board_dimension = gets.chomp.to_i
-    # board_dimension = 4
+  def board_dimension_evaluation(board_dimension)
     until ((4..9).to_a.include? board_dimension)
       system 'clear'
-      puts "Sorry #{@name} that is not a valid board size.\n" +
-      "Please choose a board size between 4 and 9 cells wide."
-      board_dimension = gets.chomp.to_i
+      @statement.print_to_terminal(@statement.board_dimension_error)
+      board_dimension = @statement.input.to_i
     end
     player_creation(board_dimension)
     ship_placement_statement
