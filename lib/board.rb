@@ -3,10 +3,37 @@ require_relative 'evaluator'
 class Board
   attr_reader :cells
 
-  def initialize(board_hash, board_dimension)
-    @cells = board_hash
+  def initialize(board_dimension)
+    @cells = make_board_hash
     @board_dimension = board_dimension
     @evaluator = Evaluator.new
+  end
+
+  def make_board_hash
+    make_board_array
+    board_hash = {}
+    board_array.each do |coordinate|
+      board_hash[coordinate.to_sym] = Cell.new(coordinate)
+    end
+    board_hash
+  end
+
+  def make_board_array
+    board_array = []
+    letters = ("A" .. "Z").to_a
+    letter_count = 0
+    number_count = 1
+    total_coordinates = @board_dimension * @board_dimension
+
+    @board_dimension.times do
+      @board_dimension.times do
+        board_array << letters[letter_count] + (number_count).to_s
+        number_count += 1
+      end
+      letter_count += 1
+      number_count = 1
+    end
+    board_array
   end
 
   def valid_placement?(coordinates, ship)
