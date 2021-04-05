@@ -56,7 +56,7 @@ class Statement
     "Please provide #{ship.length} coordinate(s):"
   end
 
-  def ship_placement_explanation
+  def ship_placement_explanation(player)
     "Great! Now let's place your ships.\n" +
     " \n" +
     "We each have three ships.\n" +
@@ -68,7 +68,7 @@ class Statement
     " \n" +
     "Let's start. Here is your board: \n" +
     " \n" +
-    @player.board.render(true) +
+    player.board.render(true) +
     " \n" +
     "You will choose cells to put the ships in.\n" +
     "Please provide the coordinate of each cell" +
