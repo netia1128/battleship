@@ -1,8 +1,10 @@
 require './lib/statement'
+require './lib/player'
 
 RSpec.describe Statement do
   before do
     @statement = Statement.new
+    @player = Player.new("Bob", 4)
   end
 
   describe '#initialize' do
@@ -46,10 +48,51 @@ RSpec.describe Statement do
       "Enter P to play or Q to quit")
     end
   end
+  describe '#place_specific_ship' do
+    it 'contains the place specific ship statement' do
+      ship = Ship.new("Tug Boat", 1)
+      expect(@statement.place_specific_ship).to eq("We are now placing the #{ship.name}.\n" +
+      "The #{ship.name} is #{ship.length} cell(s) long.\n" +
+      "Please provide #{ship.length} coordinate(s):")
+    end
+  end
   describe '#quit_game' do
     it 'contains the quit game statement' do
       expect(@statement.quit_game).to eq("Thanks for playing")
     end
   end
-
+  describe '#ship_placement_explanation' do
+    it 'contains the ship placement explanation statement' do
+      expect(@statement.ship_placement_explanation).to eq("Great! Now let's place your ships.\n" +
+      " \n" +
+      "We each have three ships.\n" +
+      "    -The Cruiser, which is three cells long.\n" +
+      "    -The Submarine, which is two cells long.\n" +
+      "    -The Tug Boat, which is one cell.\n" +
+      " \n" +
+      "I have already placed my ships. Now it's your turn. \n" +
+      " \n" +
+      "Let's start. Here is your board: \n" +
+      " \n" +
+      @player.board.render(true) +
+      " \n" +
+      "You will choose cells to put the ships in.\n" +
+      "Please provide the coordinate of each cell" +
+      " with just a space in between.\n" +
+      "For example: \n" +
+      "   A1 A2 A3\n" +
+      " \n")
+    end
+  end
+  describe '#ship_placement_success' do
+    it 'contains the ship placement success statement' do
+      ship = Ship.new("Tug Boat", 1)
+      expect(@statement.quit_game).to eq(  "Great job #{@name}, you've placed your #{ship.name}!\n" +
+        "Here is what your board looks like now.\n" +
+        "S means there is a ship in a cell." +
+        " \n" +
+        @player.board.render(true) +
+        " \n")
+    end
+  end
 end

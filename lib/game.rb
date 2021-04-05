@@ -45,53 +45,24 @@ class Game
       @statement.print_to_terminal(@statement.board_dimension_error)
       board_dimension = @statement.input.to_i
     end
-    player_creation(board_dimension)
-    ship_placement_statement
+    initialize_game(board_dimension)
   end
 
-  def player_creation(board_dimension)
-    @player = Player.new(@name, board_dimension)
-    @computron = Player.new("Computron", board_dimension)
-    @computron.computron_ship_placement
-  end
-
-  def ship_placement_statement
-    system 'clear'
-    puts "Great! Now let's place your ships.\n"
-    blank_formatting_line
-    puts "We each have three ships.\n" +
-    "    -The Cruiser, which is three cells long.\n" +
-    "    -The Submarine, which is two cells long.\n" +
-    "    -The Tug Boat, which is one cell.\n"
-    blank_formatting_line
-    puts "I have already placed my ships. Now it's your turn."
-    blank_formatting_line
-    puts "Let's start. Here is your board: \n"
-    blank_formatting_line
-    puts @player.board.render(true)
-    blank_formatting_line
-    puts "You will choose cells to put the ships in.\n" +
-    "Please provide the coordinate of each cell" +
-    " with just a space in between.\n" +
-    "For example: \n" +
-    "   A1 A2 A3\n"
+  def initialize_game(board_dimension)
+    @player = Player.new(board_dimension)
+    @computron = Player.new(board_dimension)
     ship_placement
   end
 
   def ship_placement
-    blank_formatting_line
+    @computron.computron_ship_placement
+    system 'clear'
+    @statement.print_to_terminal(@statement.ship_placement_explanation)
     @player.ships.each do |ship|
-      puts "We are now placing the #{ship.name}.\n" +
-      "The #{ship.name} is #{ship.length} cell(s) long.\n" +
-      "Please provide #{ship.length} coordinate(s):"
+      @statement.print_to_terminal(@statement.place_specific_ship(ship))
       ship_placement_evaluation(ship)
       system 'clear'
-      puts "Great job #{@name}, you've placed your #{ship.name}!\n" +
-      "Here is what your board looks like now.\n" +
-      "S means there is a ship in a cell."
-      blank_formatting_line
-      puts @player.board.render(true)
-      blank_formatting_line
+      @statement.print_to_terminal(@statement.ship_placement_success)
     end
     take_turn_statement
   end
