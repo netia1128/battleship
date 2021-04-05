@@ -14,4 +14,11 @@ RSpec.describe Statement do
     end
   end
 
+  describe '#main_menu_statement' do
+    it 'contains the main menu statement' do
+      expect(@statement.main_menu_statement).to eq("Welcome to Battleship! \n" +
+      "Enter P to play or Q to quit")
+    end
+  end
+
 end
