@@ -131,4 +131,9 @@ RSpec.describe Board do
       expect(@board.top_row).to eq("  1 2 3 4 \n")
     end
   end
+  describe '#board_numbers' do
+    it 'renders the top row of the board' do
+      expect(@board.board_numbers).to eq([1, 2, 3, 4])
+    end
+  end
 end
