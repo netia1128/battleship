@@ -100,27 +100,20 @@ class Player
     pivot_point = hit_cells_arr[0]
     cells = @board_generator.make_board_array
     pivot_point_index = cells.index(pivot_point)
-    movement_array = [1, -1, @board_dimension, (@board_dimension * -1)]
+    movement_array = @evaluator.create_movement_array(pivot_point_index, @board_dimension)
     direction = movement_array.sample
     proposed_shot_coordinate = cells[pivot_point_index + direction]
     proposed_shot_array = [proposed_shot_coordinate, hit_cells_arr[0]]
-    require 'pry'; binding.pry
-    until fire_upon(proposed_shot_coordinate) != false && @evaluator.is_horizontal_or_vertical?(proposed_shot_array)
+
+    until fire_upon(proposed_shot_coordinate) != false
       movement_array.delete(direction)
       direction = movement_array.sample
       proposed_shot_coordinate = cells[pivot_point_index + direction]
-      puts "My movement direction is #{direction}"
-      puts "my pivot point index is #{pivot_point_index}"
-      puts "my hits array is #{hit_cells_arr}"
-      puts "I am looking at #{proposed_shot_coordinate}"
-      require 'pry'; binding.pry
     end
-
 
     fire_upon(proposed_shot_coordinate)
     @last_shot_coordinate = proposed_shot_coordinate
     @shots_available.delete proposed_shot_coordinate
-    require 'pry'; binding.pry
   end
 
   def make_another_proposed_shot_array(proposed_shot_coordinate, movement_array, direction)

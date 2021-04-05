@@ -43,13 +43,13 @@ class Game
 
   def get_name_from_player
     puts "What is your name?"
-    # @name = gets.chomp
-    @name = "Bob"
+    @name = gets.chomp
+    # @name = "Bob"
   end
 
   def player_information_evaluation
-    # board_dimension = gets.chomp.to_i
-    board_dimension = 4
+    board_dimension = gets.chomp.to_i
+    # board_dimension = 4
     until ((4..9).to_a.include? board_dimension)
       system 'clear'
       puts "Sorry #{@name} that is not a valid board size.\n" +
@@ -67,44 +67,43 @@ class Game
   end
 
   def ship_placement_statement
-    # system 'clear'
-    # puts "Great! Now let's place your ships.\n"
-    # blank_formatting_line
-    # puts "We each have three ships.\n" +
-    # "    -The Cruiser, which is three cells long.\n" +
-    # "    -The Submarine, which is two cells long.\n" +
-    # "    -The Tug Boat, which is one cell.\n"
-    # blank_formatting_line
-    # puts "I have already placed my ships. Now it's your turn."
-    # blank_formatting_line
-    # puts "Let's start. Here is your board: \n"
-    # blank_formatting_line
-    # puts @player.board.render(true)
-    # blank_formatting_line
-    # puts "You will choose cells to put the ships in.\n" +
-    # "Please provide the coordinate of each cell" +
-    # " with just a space in between.\n" +
-    # "For example: \n" +
-    # "   A1 A2 A3\n"
+    system 'clear'
+    puts "Great! Now let's place your ships.\n"
+    blank_formatting_line
+    puts "We each have three ships.\n" +
+    "    -The Cruiser, which is three cells long.\n" +
+    "    -The Submarine, which is two cells long.\n" +
+    "    -The Tug Boat, which is one cell.\n"
+    blank_formatting_line
+    puts "I have already placed my ships. Now it's your turn."
+    blank_formatting_line
+    puts "Let's start. Here is your board: \n"
+    blank_formatting_line
+    puts @player.board.render(true)
+    blank_formatting_line
+    puts "You will choose cells to put the ships in.\n" +
+    "Please provide the coordinate of each cell" +
+    " with just a space in between.\n" +
+    "For example: \n" +
+    "   A1 A2 A3\n"
     ship_placement
   end
 
   def ship_placement
-    # blank_formatting_line
-    # @player.ships.each do |ship|
-    #   puts "We are now placing the #{ship.name}.\n" +
-    #   "The #{ship.name} is #{ship.length} cell(s) long.\n" +
-    #   "Please provide #{ship.length} coordinate(s):"
-    #   ship_placement_evaluation(ship)
-    #   system 'clear'
-    #   puts "Great job #{@name}, you've placed your #{ship.name}!\n" +
-    #   "Here is what your board looks like now.\n" +
-    #   "S means there is a ship in a cell."
-    #   blank_formatting_line
-    #   puts @player.board.render(true)
-    #   blank_formatting_line
-    # end
-    @player.computron_ship_placement
+    blank_formatting_line
+    @player.ships.each do |ship|
+      puts "We are now placing the #{ship.name}.\n" +
+      "The #{ship.name} is #{ship.length} cell(s) long.\n" +
+      "Please provide #{ship.length} coordinate(s):"
+      ship_placement_evaluation(ship)
+      system 'clear'
+      puts "Great job #{@name}, you've placed your #{ship.name}!\n" +
+      "Here is what your board looks like now.\n" +
+      "S means there is a ship in a cell."
+      blank_formatting_line
+      puts @player.board.render(true)
+      blank_formatting_line
+    end
     take_turn_statement
   end
 
