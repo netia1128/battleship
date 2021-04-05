@@ -17,42 +17,41 @@ class Player
   def initialize(name, board_dimension)
     @name = name
     @board_dimension = board_dimension
-    @board_generator = BoardGenerator.new(@board_dimension)
-    @ship_generator = ShipGenerator.new
     @evaluator = Evaluator.new
-    @board = Board.new(@board_generator.make_board_hash, @board_dimension)
+    @board = Board.new(BoardGenerator.new(@board_dimension).make_board_hash, @board_dimension)
     @shots_available = @board_generator.board_array
-    @ships = @ship_generator.make_ships
+    @ships = ShipGenerator.new.make_ships
     @last_shot_coordinate = ''
   end
 
   def computron_ship_placement
     ships.each do |ship|
-      # require 'pry'; binding.pry
       board.place(try(ship), ship)
     end
   end
 
   def try(ship)
-    original_coordinate = @shots_available.sample
-    until @board.coordinates_empty?([original_coordinate])
-      original_coordinate = @shots_available.sample
+    pivot_point = @shots_available.sample
+    until @board.coordinates_empty?([pivot_point])
+      pivot_point = @shots_available.sample
     end
-
-    original_coordinate_index = @shots_available.index(original_coordinate)
-    movement_variable = [1, @board_dimension, -1, (@board_dimension * -1)]
-    wip_array = [original_coordinate]
+    pivot_point_index = @shots_available.index(pivot_point)
+    movement_array = @evaluator.create_movement_array(pivot_point_index, @board_dimension)
+    wip_array = [pivot_point]
     until board.place(wip_array, ship) != false && wip_array.include?(nil) == false
-      wip_coordinate = original_coordinate
-      wip_coordinate_index =  original_coordinate_index
-      wip_array = [original_coordinate]
-      wip_movement_variable = movement_variable.sample
+      wip_coordinate = pivot_point
+      wip_coordinate_index =  pivot_point_index
+      wip_array = [pivot_point]
+      direction = movement_array.sample
       until wip_array.count == ship.length do
-        wip_coordinate_index += wip_movement_variable
+        if direction == nil || wip_coordinate_index == nil
+          require 'pry'; binding.pry
+        end
+        wip_coordinate_index += direction
         wip_coordinate = @shots_available[wip_coordinate_index]
         wip_array << wip_coordinate
       end
-      movement_variable.delete(wip_movement_variable)
+      movement_array.delete(direction)
     end
 
     wip_array
@@ -74,22 +73,9 @@ class Player
     hit_cells_arr = @board.make_hit_cells_arr
     if difficulty == "hard" && hit_cells_arr.count > 0
         smart_shot(hit_cells_arr)
-        puts hit_cells_arr
     else
         random_shot
     end
-
-      # # last_shot_coordinate needs an actual cell to evaluate this if statement
-      # if @last_shot_coordinate == "" || !@board.cells[@last_shot_coordinate.to_sym].status == "H"
-      #   random_shot
-      # elsif @board.cells[@last_shot_coordinate.to_sym].status == "H"
-      #   smart_shot
-      #   # check board cells for status = H and make array
-      #   # set last_shot_coordinate = array.first and re-enter smart_shot
-      # else
-      #   random_shot
-    #   end
-    # end
   end
 
   def random_shot
@@ -101,15 +87,23 @@ class Player
   def smart_shot(hit_cells_arr)
     pivot_point = hit_cells_arr[0]
     cells = @board_generator.make_board_array
-    pivot_point_index = cells.index(pivot_point)
+    pivot_point_index = set_pivot_point_index(pivot_point)
+
     movement_array = @evaluator.create_movement_array(pivot_point_index, @board_dimension)
     direction = movement_array.sample
+
     proposed_shot_coordinate = cells[pivot_point_index + direction]
     proposed_shot_array = [proposed_shot_coordinate, hit_cells_arr[0]]
 
     until fire_upon(proposed_shot_coordinate) != false
       movement_array.delete(direction)
       direction = movement_array.sample
+      if direction == nil
+        pivot_point = hit_cells_arr[1]
+        pivot_point_index = set_pivot_point_index(pivot_point)
+        movement_array = @evaluator.create_movement_array(pivot_point_index, @board_dimension)
+        direction = movement_array.sample
+      end
       proposed_shot_coordinate = cells[pivot_point_index + direction]
     end
 
@@ -118,24 +112,9 @@ class Player
     @shots_available.delete proposed_shot_coordinate
   end
 
-  # def smart_shot
-  #   pivot_point = @last_shot_coordinate
-  #   until @board.cells.[@last_shot_coordinate.to_sym].status = "X"
-  #     # - find the index of pivot_point within @board_generator.board_array.
-  #     # - increment by an element of this array:
-  #     #   [1, -1, board_dimension, -board_dimension]
-  #         # keep this element unchanged so we can either continue looking that
-  #         # many cells away. If next shot is M or coordinate is not valid,
-  #         # reverse (element * -1) if possible)
-  #     # - see if this new coordinate is valid_coordinate && empty
-  #     # - fire and change the index by adding by an element of this array:
-  #     #   [1, -1, board_dimension, -board_dimension]
-  #     # - put bullet into chamber to be re-evaluated by until loop?
-  #     #   until array is empty?
-  #   end
-  #   # check board cells for status = H and make array
-  #   # set pivot_point = array.first and re-enter until loop
-  # end
-
-
+  def set_pivot_point_index(pivot_point)
+    cells = @board_generator.make_board_array
+    pivot_point_index = cells.index(pivot_point)
+    pivot_point_index
+  end
 end

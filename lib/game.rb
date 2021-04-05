@@ -164,7 +164,7 @@ def take_turn_statement
       blank_formatting_line
       puts '=============COMPUTRON BOARD============='
       blank_formatting_line
-      puts @computron.board.render(true)
+      puts @computron.board.render
       blank_formatting_line
       puts '==============PLAYER BOARD=============='
       blank_formatting_line
