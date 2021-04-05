@@ -18,8 +18,7 @@ class Statement
     puts statement
   end
 
-
   def quit_game_statement
-    puts "Thanks for playing"
+    "Thanks for playing"
   end
 end

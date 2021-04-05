@@ -21,4 +21,10 @@ RSpec.describe Statement do
     end
   end
 
+  describe '#quit_game_statement' do
+    it 'contains the quit game statement' do
+      expect(@statement.quit_game_statement).to eq("Thanks for playing")
+    end
+  end
+
 end
