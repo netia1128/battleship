@@ -23,6 +23,7 @@ class BoardGenerator
   end
 
   def make_board_array
+    @board_array = []
     letters = ("A" .. "Z").to_a
     letter_count = 0
     number_count = 1
@@ -36,6 +37,9 @@ class BoardGenerator
       letter_count += 1
       number_count = 1
     end
+    puts board_array
+    gets
+
   end
 end
 
