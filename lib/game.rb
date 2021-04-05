@@ -1,4 +1,5 @@
 require_relative 'player'
+require_relative 'statement'
 
 class Game
   attr_reader :player,
@@ -10,6 +11,7 @@ class Game
     @computron = ""
     @name = ""
     @board_dimension
+    @statement = Statement.new
   end
 
   def main_menu_statement
