@@ -136,4 +136,25 @@ RSpec.describe Board do
       expect(@board.board_numbers).to eq([1, 2, 3, 4])
     end
   end
+  describe '#make_hit_cells_arr' do
+    it 'returns an empty array if no ships have been hit without being sunk' do
+      #place a ship in cell
+      #fire upon cell
+      expect(@board.make_hit_cells_arr).to eq([])
+    end
+    it 'returns an empty array if the only ships hit have been sunk' do
+      #place a tug_boat in cell
+      @board.place(["A1"], @tug_boat)
+      #fire upon cell
+      @board.cells[:A1].fire_upon
+      expect(@board.make_hit_cells_arr).to eq([])
+    end
+    it 'returns an array of cells containing ships that have been hit but not sunk' do
+      #place a ship in cell
+      @board.place(["A1", "A2"], @submarine)
+      #fire upon cell
+      @board.cells[:A1].fire_upon
+      expect(@board.make_hit_cells_arr).to eq(["A1"])
+    end
+  end
 end
