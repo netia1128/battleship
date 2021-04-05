@@ -1,108 +1,68 @@
 require_relative 'player'
+require_relative 'statement'
 
 class Game
   attr_reader :player,
-              :computron,
-              :name
+              :computron
 
   def initialize
     @player = ""
     @computron = ""
-    @name = ""
     @board_dimension
+    @statement = Statement.new
   end
 
-  def main_menu_statement
-    puts "Welcome to Battleship!"
-    puts "Enter P to play or Q to quit"
-    input = gets.chomp.upcase
-    if input == "P"
-      player_information_statement
-    elsif input == "Q"
-      quit_game
+  def main_menu
+    @statement.print_to_terminal(@statement.main_menu)
+    @statement.get_user_input
+    if @statement.input == "P"
+      introductions
+    elsif @statement.input == "Q"
+      @statement.quit_game_statement
     else
-      main_menu_statement
+      print_to_terminal(@statement.main_menu)
     end
   end
 
-  def quit_game
-    puts "Thanks for playing"
-  end
-
-  def player_information_statement
+  def introductions
     system 'clear'
-    get_name_from_player
+    @statement.print_to_terminal(@statement.ask_name)
+    @statement.get_name
     system 'clear'
-    puts "Hi #{@name}. " +
-    "My name is Computron. I will be your opponent.\n" +
-    "To start, we will create a square board to play with.\n" +
-    "Your board can be anywhere between 4 and 9 cells wide.\n" +
-    "How many cells would you like in each row?"
-    player_information_evaluation
+    @statement.print_to_terminal(@statement.introduction)
+    get_board_dimensions
   end
 
-  def get_name_from_player
-    puts "What is your name?"
-    @name = gets.chomp
-    # @name = "Bob"
+  def get_board_dimensions
+    @statement.print_to_terminal(@statement.ask_board_dimension)
+    board_dimension = @statement.get_user_input.to_i
+    board_dimension_evaluation(board_dimension)
   end
 
-  def player_information_evaluation
-    board_dimension = gets.chomp.to_i
-    # board_dimension = 4
+  def board_dimension_evaluation(board_dimension)
     until ((4..9).to_a.include? board_dimension)
       system 'clear'
-      puts "Sorry #{@name} that is not a valid board size.\n" +
-      "Please choose a board size between 4 and 9 cells wide."
-      board_dimension = gets.chomp.to_i
+      @statement.print_to_terminal(@statement.board_dimension_error)
+      board_dimension = @statement.input.to_i
     end
-    player_creation(board_dimension)
-    ship_placement_statement
+    initialize_game(board_dimension)
   end
 
-  def player_creation(board_dimension)
-    @player = Player.new(@name, board_dimension)
-    @computron = Player.new("Computron", board_dimension)
-    @computron.computron_ship_placement
-  end
-
-  def ship_placement_statement
-    system 'clear'
-    puts "Great! Now let's place your ships.\n"
-    blank_formatting_line
-    puts "We each have three ships.\n" +
-    "    -The Cruiser, which is three cells long.\n" +
-    "    -The Submarine, which is two cells long.\n" +
-    "    -The Tug Boat, which is one cell.\n"
-    blank_formatting_line
-    puts "I have already placed my ships. Now it's your turn."
-    blank_formatting_line
-    puts "Let's start. Here is your board: \n"
-    blank_formatting_line
-    puts @player.board.render(true)
-    blank_formatting_line
-    puts "You will choose cells to put the ships in.\n" +
-    "Please provide the coordinate of each cell" +
-    " with just a space in between.\n" +
-    "For example: \n" +
-    "   A1 A2 A3\n"
+  def initialize_game(board_dimension)
+    @player = Player.new(board_dimension)
+    @computron = Player.new(board_dimension)
     ship_placement
   end
 
   def ship_placement
-    blank_formatting_line
+    @computron.computron_ship_placement
+    system 'clear'
+    @statement.print_to_terminal(@statement.ship_placement_explanation)
     @player.ships.each do |ship|
-      puts "We are now placing the #{ship.name}.\n" +
-      "The #{ship.name} is #{ship.length} cell(s) long.\n" +
-      "Please provide #{ship.length} coordinate(s):"
+      @statement.print_to_terminal(@statement.place_specific_ship(ship))
       ship_placement_evaluation(ship)
       system 'clear'
-      puts "Great job #{@name}, you've placed your #{ship.name}!\n" +
-      "Here is what your board looks like now.\n" +
-      "S means there is a ship in a cell."
-      blank_formatting_line
-      puts @player.board.render(true)
-      blank_formatting_line
+      @statement.print_to_terminal(@statement.ship_placement_success)
     end
     take_turn_statement
   end

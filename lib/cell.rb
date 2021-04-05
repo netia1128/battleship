@@ -38,7 +38,6 @@ class Cell
   end
 
   def render(show_ships = false)
-    # require "pry"; binding.pry
     if show_ships == false && @status == "S"
       "."
     elsif !@ship.nil? && @ship.sunk?
