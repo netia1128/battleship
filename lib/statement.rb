@@ -1,8 +1,14 @@
 class Statement
-  attr_reader :input
+  attr_reader :input,
+              :name
 
   def initialize
     @input = ''
+    @name = ''
+  end
+
+  def ask_name_statement
+    "What is your name?"
   end
 
   def get_user_input

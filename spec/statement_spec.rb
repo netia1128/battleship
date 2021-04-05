@@ -12,6 +12,15 @@ RSpec.describe Statement do
     it 'starts with an empty input' do
       expect(@statement.input).to eq('')
     end
+    it 'starts with an empty name' do
+      expect(@statement.name).to eq('')
+    end
+  end
+
+  describe '#ask_name_statement' do
+    it 'contains the ask name statement' do
+      expect(@statement.ask_name_statement).to eq("What is your name?")
+    end
   end
 
   describe '#main_menu_statement' do
