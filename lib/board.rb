@@ -102,4 +102,14 @@ class Board
   def board_numbers
     (1..@board_dimension).to_a
   end
+
+  def make_hit_cells_arr
+    hit_cells_arr = []
+    @cells.each do |key, value|
+        if @cells[key].render == "H"
+          hit_cells_arr << cells[key].coordinate
+      end
+    end
+    hit_cells_arr
+  end
 end

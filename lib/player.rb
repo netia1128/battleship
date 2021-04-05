@@ -63,31 +63,33 @@ class Player
       if !@board.cells[shot_coordinate.to_sym].fired_upon?
         @board.cells[shot_coordinate.to_sym].fire_upon
       else
-        puts "fire upon issue"
         return false
       end
     else
-      puts "valid coordinate issue"
       return false
     end
   end
 
   def auto_shot_selection(difficulty = "easy")
-    if difficulty == "easy"
-      random_shot
-    end
-    if difficulty == "hard"
-      # last_shot_coordinate needs an actual cell to evaluate this if statement
-      if @last_shot_coordinate == ""
+    hit_cells_arr = @board.make_hit_cells_arr
+    if difficulty == "hard" && hit_cells_arr.count > 0
+        smart_shot(hit_cells_arr)
+        puts hit_cells_arr
+    else
         random_shot
-      elsif @board.cells[@last_shot_coordinate.to_sym].status == "H"
-        smart_shot
-        # check board cells for status = H and make array
-        # set last_shot_coordinate = array.first and re-enter smart_shot
-      else
-        random_shot
-      end
     end
+
+      # # last_shot_coordinate needs an actual cell to evaluate this if statement
+      # if @last_shot_coordinate == "" || !@board.cells[@last_shot_coordinate.to_sym].status == "H"
+      #   random_shot
+      # elsif @board.cells[@last_shot_coordinate.to_sym].status == "H"
+      #   smart_shot
+      #   # check board cells for status = H and make array
+      #   # set last_shot_coordinate = array.first and re-enter smart_shot
+      # else
+      #   random_shot
+    #   end
+    # end
   end
 
   def random_shot
@@ -96,21 +98,18 @@ class Player
     @shots_available.delete @last_shot_coordinate
   end
 
-  def smart_shot
-    puts @shots_available
-    gets
-    array = @board.cells.keys
-    cells = array.map do |key|
-      key.to_s
-    end
-    pivot_point = @last_shot_coordinate
-    pivot_point_index = cells.index(pivot_point)
-    movement_array = [1, -1, @board_dimension, -@board_dimension]
+  def smart_shot(hit_cells_arr)
+    pivot_point = hit_cells_arr[0]
+    pivot_point_index = @board_generator.board_array.index(pivot_point)
+    movement_array = [1, -1, @board_dimension, (@board_dimension * -1)]
     until  fire_upon(@last_shot_coordinate) != false
-      require 'pry'; binding.pry
       direction = movement_array.sample
-      @last_shot_coordinate = cells[pivot_point_index + direction]
+      @last_shot_coordinate = @board_generator.board_array[pivot_point_index + direction]
+      puts "My movement direction is #{direction}
       movement_array.delete(direction)
+      puts "my hits array is #{hit_cells_arr}"
+      puts "I am looking at #{@last_shot_coordinate}"
+      gets
     end
     fire_upon(@last_shot_coordinate)
     @shots_available.delete @last_shot_coordinate

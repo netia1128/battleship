@@ -6,8 +6,8 @@ require './lib/game'
 
 game = Game.new
 
-game.main_menu_statement
-# game.player_information_statement
+# game.main_menu_statement
+game.player_information_statement
 
 # require 'pry'; binding.pry
 # puts game.player.board.render

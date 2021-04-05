@@ -37,9 +37,6 @@ class BoardGenerator
       letter_count += 1
       number_count = 1
     end
-    puts board_array
-    gets
-
   end
 end
 
