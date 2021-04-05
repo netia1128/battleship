@@ -27,9 +27,6 @@ RSpec.describe Board do
     it 'has a hash of 16 instances of cells' do
       expect(@board.cells.values[0]).to be_an_instance_of(Cell)
     end
-    it 'has an array of available shots' do
-      expect(@board.shots_available).to eq([:A1, :A2, :A3, :A4, :B1, :B2, :B3, :B4, :C1, :C2, :C3, :C4, :D1, :D2, :D3, :D4])
-    end
   end
   describe '#valid_placement' do
     it 'returns false if array provided is != to ship.length' do
@@ -53,23 +50,6 @@ RSpec.describe Board do
       expect(@board.valid_placement?(["D4", "C4"], @submarine)).to eq(true)
     end
   end
-  describe '#is_consecutive?' do
-    it 'returns true if the coordinates are horizontal and consecutive' do
-      expect(@board.is_consecutive?(["A1", "A2"], @submarine)).to eq(true)
-    end
-    it 'returns true if the coordinates are vertical and consecutive' do
-      expect(@board.is_consecutive?(["A1", "B1"], @submarine)).to eq(true)
-    end
-    it 'returns false if the coordinates are vertical but not consecutive' do
-      expect(@board.is_consecutive?(["A1", "C1"], @submarine)).to eq(false)
-    end
-    it 'returns false if the coordinates are horizontal but not consecutive' do
-      expect(@board.is_consecutive?(["A1", "A3"], @submarine)).to eq(false)
-    end
-    it 'returns false if the coordinates aren\'t horizontal or vertical' do
-      expect(@board.is_consecutive?(["A1", "D3"], @submarine)).to eq(false)
-    end
-  end
   describe '#valid_coordinate?' do
     it 'returns true if coordinate on the board' do
       expect(@board.valid_coordinate?("B4")).to eq(true)
@@ -85,14 +65,6 @@ RSpec.describe Board do
     it 'returns false if any cells are not empty' do
       @board.place(["A1"], @tug_boat)
       expect(@board.coordinates_empty?(["A1", "A2"])).to eq(false)
-    end
-  end
-  describe 'coordinates_match_ship_length?' do
-    it 'returns false if the number of coordinates don\'t match ship length' do
-      expect(@board.coordinates_match_ship_length?(["A1", "B1"], @cruiser)).to eq(false)
-    end
-    it 'returns true if the number of coordinates match ship length' do
-      expect(@board.coordinates_match_ship_length?(["A1", "B1"], @submarine)).to eq(true)
     end
   end
   describe '#place' do

@@ -44,6 +44,7 @@ class Game
   def get_name_from_player
     puts "What is your name?"
     @name = gets.chomp
+    # @name = "Bob"
   end
 
   def player_information_evaluation
@@ -196,7 +197,7 @@ def take_turn_statement
       shot_coordinate = gets.chomp.upcase
     end
     @computron.fire_upon(shot_coordinate)
-    @player.auto_shot_selection
+    @player.auto_shot_selection("hard")
     system 'clear'
     blank_formatting_line
     shot_statement(shot_coordinate)
