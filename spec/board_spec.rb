@@ -1,7 +1,7 @@
 require './lib/board'
 require './lib/ship'
 require './lib/cell'
-require './lib/board_generator'
+
 
 RSpec.describe Board do
   before do
@@ -88,15 +88,15 @@ RSpec.describe Board do
       expect(@board.valid_coordinate?("F44")).to eq(false)
     end
   end
-  describe '#coordinates_empty?' do
-    it 'returns true if all cells are empty' do
-      expect(@board.coordinates_empty?(["A1", "A2"])).to eq(true)
-    end
-    it 'returns false if any cells are not empty' do
-      @board.place(["A1"], @tug_boat)
-      expect(@board.coordinates_empty?(["A1", "A2"])).to eq(false)
-    end
-  end
+  # describe '#coordinates_empty?' do
+  #   it 'returns true if all cells are empty' do
+  #     expect(@board.coordinates_empty?(["A1", "A2"])).to eq(true)
+  #   end
+  #   it 'returns false if any cells are not empty' do
+  #     @board.place(["A1"], @tug_boat)
+  #     expect(@board.coordinates_empty?(["A1", "A2"])).to eq(false)
+  #   end
+  # end
   describe '#render' do
     it 'renders the starting board with all "."s' do
       expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")

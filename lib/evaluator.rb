@@ -1,6 +1,11 @@
 require_relative 'board'
 
 class Evaluator
+  attr_reader :cells
+
+  def initialize(cells)
+    @cells = cells
+  end
 
   def is_consecutive?(coordinates, ship)
     if is_horizontal?(coordinates)
@@ -36,6 +41,12 @@ class Evaluator
     split_user_coordinates(coordinates).map do |sub_arr|
       sub_arr[0]
     end.sort
+  end
+
+  def coordinates_empty?(coordinates, cells)
+    coordinates.all? do |coordinate|
+      cells[coordinate.to_sym].empty?
+    end
   end
 
   def is_horizontal?(coordinates)

@@ -1,12 +1,13 @@
 require_relative 'evaluator'
 
 class Board
-  attr_reader :cells
+  attr_reader :cells,
+              :evaluator
 
   def initialize(board_dimension)
     @board_dimension = board_dimension
     @cells = make_board_hash
-    @evaluator = Evaluator.new
+    @evaluator = Evaluator.new(@cells)
   end
 
   def make_board_hash
@@ -40,7 +41,7 @@ class Board
   def valid_placement?(coordinates, ship)
     @evaluator.coordinates_match_ship_length?(coordinates, ship) &&
     @evaluator.no_duplicate_coordinates?(coordinates) &&
-    coordinates_empty?(coordinates) &&
+    @evaluator.coordinates_empty?(coordinates, @cells) &&
     @evaluator.is_consecutive?(coordinates, ship)
   end
 
@@ -63,12 +64,6 @@ class Board
       return false
     else
       @cells.keys.to_a.include? coordinate.to_sym
-    end
-  end
-
-  def coordinates_empty?(coordinates)
-    coordinates.all? do |coordinate|
-      @cells[coordinate.to_sym].empty?
     end
   end
 

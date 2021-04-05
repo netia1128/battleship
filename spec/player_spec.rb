@@ -1,4 +1,3 @@
-require './lib/board_generator'
 require './lib/evaluator'
 require './lib/player'
 require './lib/board'

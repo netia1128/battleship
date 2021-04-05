@@ -1,12 +1,13 @@
 require './lib/board'
 require './lib/ship'
+require './lib/cell'
 
 RSpec.describe Evaluator do
 
   before do
-    @evaluator = Evaluator.new
     @board_dimension = 4
     @board = Board.new(@board_dimension)
+    @evaluator = @board.evaluator
     @cruiser = Ship.new("Cruiser", 3)
     @tug_boat = Ship.new("Tug Boat", 1)
     @submarine = Ship.new("Submarine", 2)
@@ -40,6 +41,15 @@ RSpec.describe Evaluator do
     end
     it 'returns true if the number of coordinates match ship length' do
       expect(@evaluator.coordinates_match_ship_length?(["A1", "B1"], @submarine)).to eq(true)
+    end
+  end
+  describe '#coordinates_empty?' do
+    it 'returns true if all cells are empty' do
+      expect(@evaluator.coordinates_empty?(["A1", "A2"], @board.cells)).to eq(true)
+    end
+    it 'returns false if any cells are not empty' do
+      @board.place(["A1"], @tug_boat)
+      expect(@evaluator.coordinates_empty?(["A1", "A2"], @board.cells)).to eq(false)
     end
   end
 end
