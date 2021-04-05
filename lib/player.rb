@@ -44,9 +44,12 @@ class Player
       wip_array = [pivot_point]
       direction = movement_array.sample
       until wip_array.count == ship.length do
+
         if direction == nil || wip_coordinate_index == nil
+          #THIS IS THE BUG
           require 'pry'; binding.pry
         end
+        
         wip_coordinate_index += direction
         wip_coordinate = @shots_available[wip_coordinate_index]
         wip_array << wip_coordinate
@@ -93,7 +96,6 @@ class Player
     direction = movement_array.sample
 
     proposed_shot_coordinate = cells[pivot_point_index + direction]
-    proposed_shot_array = [proposed_shot_coordinate, hit_cells_arr[0]]
 
     until fire_upon(proposed_shot_coordinate) != false
       movement_array.delete(direction)
