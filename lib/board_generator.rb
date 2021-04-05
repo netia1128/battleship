@@ -6,12 +6,9 @@ class BoardGenerator
               :board_hash
 
   def initialize(board_dimension)
-    #pass in board dimensions and create hash of cells for the board
     @board_dimension = board_dimension
     @board_array = []
     @board_hash = {}
-    make_board_hash
-    # @board = Board.new(board_hash, board_dimension)
   end
 
   def make_board_hash

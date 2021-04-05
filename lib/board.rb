@@ -16,16 +16,6 @@ class Board
     @evaluator.is_consecutive?(coordinates, ship)
   end
 
-  def valid_coordinate?(coordinate)
-    @cells.keys.to_a.include? coordinate.to_sym
-  end
-
-  def coordinates_empty?(coordinates)
-    coordinates.all? do |coordinate|
-      @cells[coordinate.to_sym].empty?
-    end
-  end
-
   def place(coordinates, ship)
     coordinates.each do |coordinate|
       if !valid_coordinate?(coordinate)
@@ -39,6 +29,18 @@ class Board
       @cells[coordinate.to_sym].place_ship(ship)
     end
   end
+
+  def valid_coordinate?(coordinate)
+    @cells.keys.to_a.include? coordinate.to_sym
+  end
+
+  def coordinates_empty?(coordinates)
+    coordinates.all? do |coordinate|
+      @cells[coordinate.to_sym].empty?
+    end
+  end
+
+
 
   def render(show_ships = false)
     string = top_row

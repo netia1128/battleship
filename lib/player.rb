@@ -1,4 +1,6 @@
 require_relative 'board_generator'
+require_relative 'ship_generator'
+require_relative 'evaluator'
 require_relative 'board'
 require_relative 'game'
 require_relative 'ship'
@@ -14,15 +16,14 @@ class Player
 
   def initialize(name, board_dimension)
     @name = name
-    @board_generator = BoardGenerator.new(board_dimension)
     @board_dimension = board_dimension
-    @shots_available = @board_generator.board_array
-    @cruiser = Ship.new("Cruiser", 3)
-    @submarine = Ship.new("Submarine", 2)
-    @tug_boat = Ship.new("Tug Boat", 1)
-    @ships = [@cruiser, @submarine, @tug_boat]
-    #would you like this to be a helper method?
+    @board_generator = BoardGenerator.new(@board_dimension)
+    @ship_generator = ShipGenerator.new
+    # require 'pry'; binding.pry
     @board = Board.new(@board_generator.make_board_hash, @board_dimension)
+    @shots_available = @board_generator.board_array
+    @ships = @ship_generator.make_ships
+    #would you like this to be a helper method?
     @last_shot_coordinate = ''
   end
 
@@ -41,7 +42,6 @@ class Player
     original_coordinate_index = @shots_available.index(original_coordinate)
     movement_variable = [1, @board_dimension, -1, (@board_dimension * -1)]
     wip_array = [original_coordinate]
-
     until board.place(wip_array, ship) != false
       wip_coordinate = original_coordinate
       wip_coordinate_index =  original_coordinate_index
@@ -54,7 +54,6 @@ class Player
       end
       movement_variable.delete(wip_movement_variable)
     end
-
     wip_array
   end
 

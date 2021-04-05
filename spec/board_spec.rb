@@ -27,9 +27,6 @@ RSpec.describe Board do
     it 'has a hash of 16 instances of cells' do
       expect(@board.cells.values[0]).to be_an_instance_of(Cell)
     end
-    it 'has an array of available shots' do
-      expect(@board.shots_available).to eq([:A1, :A2, :A3, :A4, :B1, :B2, :B3, :B4, :C1, :C2, :C3, :C4, :D1, :D2, :D3, :D4])
-    end
   end
   describe '#valid_placement' do
     it 'returns false if array provided is != to ship.length' do
