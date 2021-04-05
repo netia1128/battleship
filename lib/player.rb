@@ -105,7 +105,7 @@ class Player
     until  fire_upon(@last_shot_coordinate) != false
       direction = movement_array.sample
       @last_shot_coordinate = @board_generator.board_array[pivot_point_index + direction]
-      puts "My movement direction is #{direction}
+      puts "My movement direction is #{direction}"
       movement_array.delete(direction)
       puts "my hits array is #{hit_cells_arr}"
       puts "I am looking at #{@last_shot_coordinate}"
