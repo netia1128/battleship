@@ -28,6 +28,7 @@ class Player
 
   def computron_ship_placement
     ships.each do |ship|
+      # require 'pry'; binding.pry
       board.place(try(ship), ship)
     end
   end
@@ -41,7 +42,7 @@ class Player
     original_coordinate_index = @shots_available.index(original_coordinate)
     movement_variable = [1, @board_dimension, -1, (@board_dimension * -1)]
     wip_array = [original_coordinate]
-    until board.place(wip_array, ship) != false
+    until board.place(wip_array, ship) != false && wip_array.include?(nil) == false
       wip_coordinate = original_coordinate
       wip_coordinate_index =  original_coordinate_index
       wip_array = [original_coordinate]
@@ -53,6 +54,7 @@ class Player
       end
       movement_variable.delete(wip_movement_variable)
     end
+
     wip_array
   end
 
@@ -114,10 +116,6 @@ class Player
     fire_upon(proposed_shot_coordinate)
     @last_shot_coordinate = proposed_shot_coordinate
     @shots_available.delete proposed_shot_coordinate
-  end
-
-  def make_another_proposed_shot_array(proposed_shot_coordinate, movement_array, direction)
-
   end
 
   # def smart_shot

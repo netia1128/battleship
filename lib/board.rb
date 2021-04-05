@@ -31,7 +31,11 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-    @cells.keys.to_a.include? coordinate.to_sym
+    if coordinate == nil
+      return false
+    else
+      @cells.keys.to_a.include? coordinate.to_sym
+    end
   end
 
   def coordinates_empty?(coordinates)
