@@ -7,7 +7,7 @@ class Statement
     @name = ''
   end
 
-  def ask_name_statement
+  def ask_name
     "What is your name?"
   end
 
@@ -15,7 +15,11 @@ class Statement
     @input = gets.chomp.upcase
   end
 
-  def main_menu_statement
+  def introduction
+    "My name is Computron. I will be your opponent."
+  end
+
+  def main_menu
     "Welcome to Battleship! \n" +
     "Enter P to play or Q to quit"
   end
@@ -24,7 +28,7 @@ class Statement
     puts statement
   end
 
-  def quit_game_statement
+  def quit_game
     "Thanks for playing"
   end
 end

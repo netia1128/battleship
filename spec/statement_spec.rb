@@ -17,22 +17,25 @@ RSpec.describe Statement do
     end
   end
 
-  describe '#ask_name_statement' do
+  describe '#ask_name' do
     it 'contains the ask name statement' do
-      expect(@statement.ask_name_statement).to eq("What is your name?")
+      expect(@statement.ask_name).to eq("What is your name?")
     end
   end
-
-  describe '#main_menu_statement' do
+  describe '#introduction' do
+    it 'contains the introduction statement' do
+      expect(@statement.introduction).to eq("My name is Computron. I will be your opponent.")
+    end
+  end
+  describe '#main_menu' do
     it 'contains the main menu statement' do
-      expect(@statement.main_menu_statement).to eq("Welcome to Battleship! \n" +
+      expect(@statement.main_menu).to eq("Welcome to Battleship! \n" +
       "Enter P to play or Q to quit")
     end
   end
-
-  describe '#quit_game_statement' do
+  describe '#quit_game' do
     it 'contains the quit game statement' do
-      expect(@statement.quit_game_statement).to eq("Thanks for playing")
+      expect(@statement.quit_game).to eq("Thanks for playing")
     end
   end
 
