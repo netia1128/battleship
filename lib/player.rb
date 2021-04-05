@@ -1,4 +1,3 @@
-require_relative 'board_generator'
 require_relative 'ship_generator'
 require_relative 'evaluator'
 require_relative 'board'
@@ -6,8 +5,7 @@ require_relative 'game'
 require_relative 'ship'
 
 class Player
-  attr_reader :board_generator,
-              :board,
+  attr_reader :board,
               :ships,
               :name,
               :last_shot_coordinate
@@ -18,8 +16,8 @@ class Player
     @name = name
     @board_dimension = board_dimension
     @evaluator = Evaluator.new
-    @board = Board.new(BoardGenerator.new(@board_dimension).make_board_hash, @board_dimension)
-    @shots_available = @board_generator.board_array
+    @board = Board.new(@board_dimension)
+    @shots_available = @board.make_board_array
     @ships = ShipGenerator.new.make_ships
     @last_shot_coordinate = ''
   end
@@ -49,7 +47,7 @@ class Player
           #THIS IS THE BUG
           require 'pry'; binding.pry
         end
-        
+
         wip_coordinate_index += direction
         wip_coordinate = @shots_available[wip_coordinate_index]
         wip_array << wip_coordinate
@@ -89,7 +87,7 @@ class Player
 
   def smart_shot(hit_cells_arr)
     pivot_point = hit_cells_arr[0]
-    cells = @board_generator.make_board_array
+    cells = @board.make_board_array
     pivot_point_index = set_pivot_point_index(pivot_point)
 
     movement_array = @evaluator.create_movement_array(pivot_point_index, @board_dimension)
@@ -115,7 +113,7 @@ class Player
   end
 
   def set_pivot_point_index(pivot_point)
-    cells = @board_generator.make_board_array
+    cells = @board.make_board_array
     pivot_point_index = cells.index(pivot_point)
     pivot_point_index
   end

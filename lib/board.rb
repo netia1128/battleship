@@ -4,18 +4,18 @@ class Board
   attr_reader :cells
 
   def initialize(board_dimension)
-    @cells = make_board_hash
     @board_dimension = board_dimension
+    @cells = make_board_hash
     @evaluator = Evaluator.new
   end
 
   def make_board_hash
-    make_board_array
+    board_array = make_board_array
     board_hash = {}
     board_array.each do |coordinate|
       board_hash[coordinate.to_sym] = Cell.new(coordinate)
     end
-    board_hash
+    @cells = board_hash
   end
 
   def make_board_array
@@ -23,6 +23,7 @@ class Board
     letters = ("A" .. "Z").to_a
     letter_count = 0
     number_count = 1
+    # require 'pry'; binding.pry
     total_coordinates = @board_dimension * @board_dimension
 
     @board_dimension.times do

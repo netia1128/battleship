@@ -1,4 +1,3 @@
-require './lib/board_generator'
 require './lib/board'
 require './lib/ship'
 
@@ -7,8 +6,7 @@ RSpec.describe Evaluator do
   before do
     @evaluator = Evaluator.new
     @board_dimension = 4
-    @board_generator = BoardGenerator.new(@board_dimension)
-    @board = Board.new(@board_generator.make_board_hash, @board_dimension)
+    @board = Board.new(@board_dimension)
     @cruiser = Ship.new("Cruiser", 3)
     @tug_boat = Ship.new("Tug Boat", 1)
     @submarine = Ship.new("Submarine", 2)
