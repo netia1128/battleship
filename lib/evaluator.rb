@@ -46,4 +46,8 @@ class Evaluator
     user_coordinate_numbers(coordinates).uniq.count == 1
   end
 
+  def is_horizontal_or_vertical?(coordinates)
+    user_coordinate_letters(coordinates).uniq.count == 1 || user_coordinate_numbers(coordinates).uniq.count == 1
+  end
+
 end

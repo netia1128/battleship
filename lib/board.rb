@@ -40,8 +40,6 @@ class Board
     end
   end
 
-
-
   def render(show_ships = false)
     string = top_row
     @cells.each do |key, value|

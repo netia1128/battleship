@@ -34,7 +34,9 @@ class BoardGenerator
       letter_count += 1
       number_count = 1
     end
+    @board_array
   end
+
 end
 
 ## board = Board.new(board_hash, board_dimension)
