@@ -36,6 +36,16 @@ RSpec.describe Statement do
       "Please choose a board size between 4 and 9 cells wide.")
     end
   end
+  describe '#computron_won' do
+    it 'contains the board_dimension_error statement' do
+      expect(@statement.computron_won).to eq("Computron won!")
+    end
+  end
+  describe '#game_over' do
+    it 'contains the board_dimension_error statement' do
+      expect(@statement.game_over).to eq("GAMEOVER!")
+    end
+  end
   describe '#introduction' do
     it 'contains the introduction statement' do
       expect(@statement.introduction).to eq("Hi #{@statement.name}. \n" +
@@ -150,7 +160,7 @@ RSpec.describe Statement do
       it 'contains the take turn error statement' do
         player = Player.new(4)
         computron = Player.new(4)
-        expect(@statement.take_turn_evaluation(player, computron)).to eq(        "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" +
+        expect(@statement.take_turn_error(player, computron)).to eq(        "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" +
             " \n" +
             "\nSorry #{@name} " +
             "Your shot coordinate is not valid.\n" +
@@ -192,6 +202,11 @@ RSpec.describe Statement do
         "We will take turns until all of someone's ships have been sunk.\n" +
         " \n" +
         "Now let's play")
+      end
     end
-  end
+    describe '#you_won' do
+      it 'contains the you won statement' do
+        expect(@statement.you_won).to eq("You won!")
+      end
+    end
 end

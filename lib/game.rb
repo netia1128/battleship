@@ -90,40 +90,50 @@ def take_turn_explanation
   def take_turn
     until end_of_game?
       @statement.print_to_terminal(@statement.take_turn(@player, @computron))
-      take_turn_evaluation
+      take_turn_error
     end
-    end_of_game_statement
+    end_of_game
   end
 
-  def take_turn_evaluation
+  def take_turn_error
     shot_coordinate = @statement.get_user_input.upcase
     until @computron.fire_upon(shot_coordinate) != false
       system 'clear'
-      @statement.print_to_terminal(@statement.take_turn_evaluation(@player, @computron))
+      @statement.print_to_terminal(@statement.take_turn_error(@player, @computron))
       shot_coordinate = @statement.get_user_input.upcase
     end
     @computron.fire_upon(shot_coordinate)
     @player.auto_shot_selection("hard")
     system 'clear'
-    shot_statement(shot_coordinate)
+    shot_report(shot_coordinate)
   end
 
   def shot_report(shot_coordinate)
     @statement.print_to_terminal(@statement.shot_report(player, computron, shot_coordinate))
   end
 
-
-  def end_of_game_statement
-     "GAME OVER"
+  def end_of_game
+     @statement.print_to_terminal(@statement.game_over)
+     if player_won?
+       @statement.print_to_terminal(@statement.you_won)
+     else
+       @statement.print_to_terminal(@statement.computron_won)
+     end
   end
 
   def end_of_game?
+    player_won? || computron_won?
+  end
+
+  def player_won?
     @player.ships.all? do |ship|
-      ship.sunk?
-    end ||
-    @computron.ships.all? do |ship|
       ship.sunk?
     end
   end
 
+  def computron_won?
+    @player.ships.all? do |ship|
+      ship.sunk?
+    end
+  end
 end

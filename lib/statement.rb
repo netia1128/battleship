@@ -24,6 +24,14 @@ class Statement
     "Please choose a board size between 4 and 9 cells wide."
   end
 
+  def computron_won
+    "Computron won!"
+  end
+
+  def game_over
+    "GAMEOVER!"
+  end
+
   def get_name
     @name = gets.chomp
   end
@@ -186,5 +194,9 @@ class Statement
     "We will take turns until all of someone's ships have been sunk.\n" +
     " \n" +
     "Now let's play"
+  end
+
+  def you_won
+    "You won!"
   end
 end
