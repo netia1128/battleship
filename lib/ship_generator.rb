@@ -13,6 +13,4 @@ class ShipGenerator
     tug_boat = Ship.new("Tug Boat", 1)
     @ships = [cruiser, submarine, tug_boat]
   end
-
-
 end

@@ -23,7 +23,6 @@ RSpec.describe Cell do
       expect(@cell.ship).to eq(nil)
     end
   end
-
   describe '#empty?' do
     it 'returns true if a cell is empty' do
       expect(@cell.empty?).to eq(true)
@@ -34,7 +33,6 @@ RSpec.describe Cell do
       expect(@cell.empty?).to eq(false)
     end
   end
-
   describe '#place ship' do
     it 'places a ship' do
       ship = Ship.new("cruiser", 3)
@@ -42,7 +40,6 @@ RSpec.describe Cell do
       expect(@cell.status).to eq('S')
     end
   end
-
   describe '#fired_upon?' do
     it 'returns false if cell has not been fired upon' do
       expect(@cell.fired_upon?).to eq(false)
@@ -67,58 +64,53 @@ RSpec.describe Cell do
       expect(@cell.fired_upon?).to eq(true)
     end
   end
-
   describe '#fire_upon' do
-    describe 'updates status' do
-      it 'from . to M' do
-        @cell.fire_upon
-        expect(@cell.status).to eq("M")
-      end
-      it 'from S to H' do
-        ship = Ship.new("cruiser", 3)
-        @cell.place_ship(ship)
-        @cell.fire_upon
-        expect(@cell.status).to eq("H")
-      end
-      it 'from S to X' do
-        ship = Ship.new("tug boat", 1)
-        @cell.place_ship(ship)
-        @cell.fire_upon
-        expect(@cell.status).to eq("X")
-      end
+    it 'updates status from . to M' do
+      @cell.fire_upon
+      expect(@cell.status).to eq("M")
     end
-
-    describe '#render' do
-        it 'renders a cell with . status as .' do
-          expect(@cell.render).to eq(".")
-        end
-        it 'renders a cell with M status as M' do
-          @cell.fire_upon
-          expect(@cell.render).to eq("M")
-        end
-        it 'renders a cell with S status as . by default' do
-          ship = Ship.new("tug boat", 1)
-          @cell.place_ship(ship)
-          expect(@cell.render).to eq(".")
-        end
-        it 'renders a cell with S status as S if show_ships true' do
-          ship = Ship.new("tug boat", 1)
-          @cell.place_ship(ship)
-          expect(@cell.render(true)).to eq("S")
-        end
-        it 'renders a cell with H status as H' do
-          ship = Ship.new("crusier", 3)
-          @cell.place_ship(ship)
-          @cell.fire_upon
-          expect(@cell.render).to eq("H")
-        end
-        it 'renders a cell with X status as X' do
-          ship = Ship.new("tug boat", 1)
-          @cell.place_ship(ship)
-          @cell.fire_upon
-          expect(@cell.render).to eq("X")
-        end
-      end
+    it 'updates status from S to H' do
+      ship = Ship.new("cruiser", 3)
+      @cell.place_ship(ship)
+      @cell.fire_upon
+      expect(@cell.status).to eq("H")
+    end
+    it 'updates status from S to X' do
+      ship = Ship.new("tug boat", 1)
+      @cell.place_ship(ship)
+      @cell.fire_upon
+      expect(@cell.status).to eq("X")
+    end
   end
-
+  describe '#render' do
+    it 'renders a cell with . status as .' do
+      expect(@cell.render).to eq(".")
+    end
+    it 'renders a cell with M status as M' do
+      @cell.fire_upon
+      expect(@cell.render).to eq("M")
+    end
+    it 'renders a cell with S status as . by default' do
+      ship = Ship.new("tug boat", 1)
+      @cell.place_ship(ship)
+      expect(@cell.render).to eq(".")
+    end
+    it 'renders a cell with S status as S if show_ships true' do
+      ship = Ship.new("tug boat", 1)
+      @cell.place_ship(ship)
+      expect(@cell.render(true)).to eq("S")
+    end
+    it 'renders a cell with H status as H' do
+      ship = Ship.new("crusier", 3)
+      @cell.place_ship(ship)
+      @cell.fire_upon
+      expect(@cell.render).to eq("H")
+    end
+    it 'renders a cell with X status as X' do
+      ship = Ship.new("tug boat", 1)
+      @cell.place_ship(ship)
+      @cell.fire_upon
+      expect(@cell.render).to eq("X")
+    end
+  end
 end
