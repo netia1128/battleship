@@ -28,6 +28,20 @@ RSpec.describe Board do
       expect(@board.cells.values[0]).to be_an_instance_of(Cell)
     end
   end
+  describe '#make_board_hash' do
+    it 'generates a hash of cells for the board' do
+      expect(@board.make_board_hash.length).to eq(@board.cells.length)
+    end
+  end
+  describe '#make_board_array' do
+    it 'generates an array of coordinates for the board' do
+      coordinates_as_strings = []
+      @board.cells.each do |coordinate, cell|
+        coordinates_as_strings.push(coordinate.to_s)
+      end
+      expect(@board.make_board_array).to eq(coordinates_as_strings)
+    end
+  end
   describe '#valid_placement' do
     it 'returns false if array provided is != to ship.length' do
       expect(@board.valid_placement?(["A1", "B1"], @cruiser)).to eq(false)
@@ -88,15 +102,6 @@ RSpec.describe Board do
       expect(@board.valid_coordinate?("F44")).to eq(false)
     end
   end
-  # describe '#coordinates_empty?' do
-  #   it 'returns true if all cells are empty' do
-  #     expect(@board.coordinates_empty?(["A1", "A2"])).to eq(true)
-  #   end
-  #   it 'returns false if any cells are not empty' do
-  #     @board.place(["A1"], @tug_boat)
-  #     expect(@board.coordinates_empty?(["A1", "A2"])).to eq(false)
-  #   end
-  # end
   describe '#render' do
     it 'renders the starting board with all "."s' do
       expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
