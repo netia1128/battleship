@@ -94,14 +94,13 @@ def take_turn_explanation
   def take_turn
     until end_of_game?
       @statement.print_to_terminal(@statement.take_turn(@player, @computron))
-      shot_coordinate = @statement.get_user_input.upcase
-      @statement.print_to_terminal(@statement.shot_report(@player, @computron, @player.last_shot_coordinate))
-      take_turn_error
+      take_turn_evaluation
     end
     end_of_game
   end
 
-  def take_turn_error
+  def take_turn_evaluation
+    shot_coordinate = @statement.get_user_input.upcase
     until @computron.fire_upon(shot_coordinate) != false
       system 'clear'
       @statement.print_to_terminal(@statement.take_turn_error(@player, @computron))
@@ -110,10 +109,6 @@ def take_turn_explanation
     @computron.fire_upon(shot_coordinate)
     @player.auto_shot_selection("hard")
     system 'clear'
-    shot_report(shot_coordinate)
-  end
-
-  def shot_report(shot_coordinate)
     @statement.print_to_terminal(@statement.shot_report(player, computron, shot_coordinate))
   end
 

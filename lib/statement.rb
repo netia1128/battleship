@@ -19,6 +19,20 @@ class Statement
     "What is your name?"
   end
 
+  def battleship_graphic
+    " _____     _____   _______  _______  _        _______  _______  _     _  _______  _____   \n" +
+    "|  __  \\  /  _  \\ |__   __||__   __|| |      |  _____||  ____ || |   | ||__   __||  __  \\ \n" +
+    "| |  \\  ||  / \\  |   | |      | |   | |      | |      | |   |_|| |   | |   | |   | |  \\  |\n" +
+    "| |__/  || |___| |   | |      | |   | |      | |___   | |_____ | |___| |   | |   | |__/  |\n" +
+    "|      / |  ___  |   | |      | |   | |      |  ___|  |______ ||  ___  |   | |   |  ____/ \n" +
+    "|  __  \\ | |   | |   | |      | |   | |      | |            | || |   | |   | |   | |      \n" +
+    "| |  \\  || |   | |   | |      | |   | |      | |       _    | || |   | |   | |   | |      \n" +
+    "| |__/  || |   | |   | |      | |   | |_____ | |_____ | |___| || |   | | __| |__ | |      \n" +
+    "|______/ |_|   |_|   |_|      |_|   |_______||_______||_______||_|   |_||_______||_|      " +
+    " \n" +
+    " \n"
+  end
+
   def board_dimension_error
     "Sorry #{@name} that is not a valid board size.\n" +
     "Please choose a board size between 4 and 9 cells wide."
@@ -43,18 +57,6 @@ class Statement
   def introduction
     "Hi #{@name}. \n" +
     "My name is Computron. I will be your opponent."
-  end
-
-  def battleship_graphic
-    " _____     _____   _______  _______  _        _______  _______  _     _  _______  _____   \n" +
-    "|  __  \\  /  _  \\ |__   __||__   __|| |      |  _____||  ____ || |   | ||__   __||  __  \\ \n" +
-    "| |  \\  ||  / \\  |   | |      | |   | |      | |      | |   |_|| |   | |   | |   | |  \\  |\n" +
-    "| |__/  || |___| |   | |      | |   | |      | |___   | |_____ | |___| |   | |   | |__/  |\n" +
-    "|      / |  ___  |   | |      | |   | |      |  ___|  |______ ||  ___  |   | |   |  ____/ \n" +
-    "|  __  \\ | |   | |   | |      | |   | |      | |            | || |   | |   | |   | |      \n" +
-    "| |  \\  || |   | |   | |      | |   | |      | |       _    | || |   | |   | |   | |      \n" +
-    "| |__/  || |   | |   | |      | |   | |_____ | |_____ | |___| || |   | | __| |__ | |      \n" +
-    "|______/ |_|   |_|   |_|      |_|   |_______||_______||_______||_|   |_||_______||_|      "
   end
 
   def main_menu
@@ -129,7 +131,7 @@ class Statement
     " \n"
   end
 
-  def shot_report(player, computron, shot_coordinate, last_shot_coordinate)
+  def shot_report(player, computron, shot_coordinate)
     case computron.board.cells[shot_coordinate.to_sym].status
     when "M"
       "You missed!"
@@ -137,8 +139,8 @@ class Statement
        "You hit something!"
     when "X"
        "You sunk a ship!"
-    end
-     ''
+    end +
+     " \n" +
     case player.board.cells[player.last_shot_coordinate.to_sym].status
     when "M"
        "Then Computron took a shot and missed!"
@@ -146,9 +148,9 @@ class Statement
        "Then Computron took a shot and hit something!"
     when "X"
        "Then Computron took a shot and sunk a ship!"
-    end
+    end +
      " \n" +
-     "Time for the next turn!"
+     "Time for the next turn!" +
      " \n"
   end
 
