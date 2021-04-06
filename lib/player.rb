@@ -1,4 +1,4 @@
-require_relative 'ship_generator'
+
 require_relative 'evaluator'
 require_relative 'board'
 require_relative 'game'
@@ -27,8 +27,7 @@ class Player
   end
 
   def try(ship)
-    pivot_point = "D3"
-    # pivot_point = @shots_available.sample
+    pivot_point = @shots_available.sample
     until @evaluator.coordinates_empty?([pivot_point], @board.cells)
       pivot_point = @shots_available.sample
     end

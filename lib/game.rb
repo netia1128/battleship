@@ -62,6 +62,8 @@ class Game
 
   def ship_placement
     @computron.computron_ship_placement
+    system 'clear'
+    @statement.print_to_terminal(@statement.ship_placement_explanation(@player))
     @player.ships.each do |ship|
       @statement.print_to_terminal(@statement.place_specific_ship(ship))
       ship_placement_evaluation(ship)

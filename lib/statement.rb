@@ -64,6 +64,7 @@ class Statement
     "Please provide #{ship.length} coordinate(s):"
   end
 
+<<<<<<< HEAD
   def ship_placement_error(player, ship)
      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" +
     " \n" +
@@ -86,6 +87,8 @@ class Statement
     "Please provide #{ship.length} coordinate(s):"
   end
 
+=======
+>>>>>>> 1c7edd7b494378bebd9e3ce2af20ce9dbd792bfe
   def ship_placement_explanation(player)
     "Great! Now let's place your ships.\n" +
     " \n" +
