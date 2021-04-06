@@ -146,11 +146,12 @@ RSpec.describe Statement do
           " \n" +
           "Please pick a coordinate on Computron's board to fire upon:\n")
     end
-    describe '#take_turn_evaluation' do
-      it 'contains the take turn evaluation statement' do
+    describe '#take_turn_error' do
+      it 'contains the take turn error statement' do
         player = Player.new(4)
         computron = Player.new(4)
-        expect(@statement.take_turn_evaluation(player, computron)).to eq(    "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" +
+        expect(@statement.take_turn_evaluation(player, computron)).to eq(        "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" +
+            " \n" +
             "\nSorry #{@name} " +
             "Your shot coordinate is not valid.\n" +
             "To have a valid shot placement all of the following must be true:\n" +

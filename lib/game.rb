@@ -105,35 +105,16 @@ def take_turn_explanation
     @computron.fire_upon(shot_coordinate)
     @player.auto_shot_selection("hard")
     system 'clear'
-    blank_formatting_line
     shot_statement(shot_coordinate)
   end
 
-  def shot_statement(shot_coordinate)
-    case @computron.board.cells[shot_coordinate.to_sym].status
-    when "M"
-      puts "You missed!"
-    when "H"
-      puts "You hit something!"
-    when "X"
-      puts "You sunk a ship!"
-    end
-    puts ''
-    case @player.board.cells[@player.last_shot_coordinate.to_sym].status
-    when "M"
-      puts "Then Computron took a shot and missed!"
-    when "H"
-      puts "Then Computron took a shot and hit something!"
-    when "X"
-      puts "Then Computron took a shot and sunk a ship!"
-    end
-    puts ' '
-    puts 'Time for the next turn!'
-    puts ''
+  def shot_report(shot_coordinate)
+    @statement.print_to_terminal(@statement.shot_report(player, computron, shot_coordinate))
   end
 
+
   def end_of_game_statement
-    puts "GAME OVER"
+     "GAME OVER"
   end
 
   def end_of_game?
@@ -145,7 +126,4 @@ def take_turn_explanation
     end
   end
 
-  def blank_formatting_line
-    puts ''
-  end
 end

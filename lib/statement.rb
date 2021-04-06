@@ -109,6 +109,29 @@ class Statement
     " \n"
   end
 
+  def shot_report(player, computron, shot_coordinate)
+    case computron.board.cells[shot_coordinate.to_sym].status
+    when "M"
+      "You missed!"
+    when "H"
+       "You hit something!"
+    when "X"
+       "You sunk a ship!"
+    end
+     ''
+    case player.board.cells[player.last_shot_coordinate.to_sym].status
+    when "M"
+       "Then Computron took a shot and missed!"
+    when "H"
+       "Then Computron took a shot and hit something!"
+    when "X"
+       "Then Computron took a shot and sunk a ship!"
+    end
+     " \n" +
+     "Time for the next turn!"
+     " \n"
+  end
+
   def take_turn(player, computron)
     " \n" +
     "=============COMPUTRON BOARD============= \n" +
@@ -122,8 +145,9 @@ class Statement
     "Please pick a coordinate on Computron's board to fire upon:\n"
   end
 
-  def take_turn_evaluation(player, computron)
+  def take_turn_error(player, computron)
     "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" +
+    " \n" +
     "\nSorry #{@name} " +
     "Your shot coordinate is not valid.\n" +
     "To have a valid shot placement all of the following must be true:\n" +
