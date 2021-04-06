@@ -122,6 +122,26 @@ class Statement
     "Please pick a coordinate on Computron's board to fire upon:\n"
   end
 
+  def take_turn_evaluation(player, computron)
+    "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" +
+    "\nSorry #{@name} " +
+    "Your shot coordinate is not valid.\n" +
+    "To have a valid shot placement all of the following must be true:\n" +
+    "- The coordinate must be on the board.\n" +
+    "- You cannot already have fired upon the coordinate.\n" +
+    "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
+    "\n" +
+    '=============COMPUTRON BOARD=============' +
+    " \n" +
+    computron.board.render +
+    " \n" +
+    '==============PLAYER BOARD==============' +
+    " \n" +
+    player.board.render(true) +
+    " \n" +
+    "Please try again.\n"
+  end
+
   def turn_explanation
     "Great work, all your ships have been placed. \n" +
     "Let me quickly explain how to play. \n" +

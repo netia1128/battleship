@@ -89,31 +89,18 @@ def take_turn_explanation
 
   def take_turn
     until end_of_game?
-      take_turn(@player, @computron)
+      @statement.print_to_terminal(@statement.take_turn(@player, @computron))
       take_turn_evaluation
     end
     end_of_game_statement
   end
 
   def take_turn_evaluation
-    shot_coordinate = gets.chomp.upcase
+    shot_coordinate = @statement.get_user_input.upcase
     until @computron.fire_upon(shot_coordinate) != false
       system 'clear'
-      puts "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-      puts "\nSorry #{@player.name} " +
-      "Your shot coordinate is not valid.\n" +
-      "To have a valid shot placement all of the following must be true:\n" +
-      "- The coordinate must be on the board.\n" +
-      "- You cannot already have fired upon the coordinate.\n" +
-      "\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
-      "\n"
-      puts '=============COMPUTRON BOARD============='
-      puts @computron.board.render
-      puts '==============PLAYER BOARD=============='
-      puts @player.board.render(true)
-      blank_formatting_line
-      puts "Please try again.\n"
-      shot_coordinate = gets.chomp.upcase
+      @statement.print_to_terminal(@statement.take_turn_evaluation(@player, @computron))
+      shot_coordinate = @statement.get_user_input.upcase
     end
     @computron.fire_upon(shot_coordinate)
     @player.auto_shot_selection("hard")
