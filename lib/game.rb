@@ -51,71 +51,40 @@ class Game
   def initialize_game(board_dimension)
     @player = Player.new(board_dimension)
     @computron = Player.new(board_dimension)
+    ship_placement_explanation
+  end
+
+  def ship_placement_explanation
+    system 'clear'
+    @statement.print_to_terminal(@statement.ship_placement_explanation(@player))
     ship_placement
   end
 
   def ship_placement
     @computron.computron_ship_placement
-    system 'clear'
-    @statement.print_to_terminal(@statement.ship_placement_explanation)
     @player.ships.each do |ship|
       @statement.print_to_terminal(@statement.place_specific_ship(ship))
       ship_placement_evaluation(ship)
       system 'clear'
-      @statement.print_to_terminal(@statement.ship_placement_success)
+      @statement.print_to_terminal(@statement.ship_placement_success(ship, @player))
     end
-    take_turn_statement
+    take_turn
   end
 
 def ship_placement_evaluation(ship)
-  user_coordinates = gets.chomp.upcase.split(" ")
+  user_coordinates = @statement.get_user_input.upcase.split(" ")
   until (@player.board.place(user_coordinates, ship)) != false
     system 'clear'
-    puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n"
-    blank_formatting_line
-    puts "Sorry #{@name}, your placement is not valid.\n" +
-    "For a valid placement each of the following must be true:\n" +
-    "- Please provide a number of coordinates equal to the ship length\n" +
-    "- The coordinates must be consecuitive\n" +
-    "- The coordinates must run horizontally or vertically\n" +
-    "- You cannot already have a ship in a proposed coordinate\n" +
-    "- You must enter each coordinate with just a space in between.\n" +
-    "      For example:\n" +
-    "      A1 A2 A3 \n"
-    blank_formatting_line
-    puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n"
-    blank_formatting_line
-    puts "Please try again. Here is your board:"
-    blank_formatting_line
-    puts @player.board.render(true)
-    blank_formatting_line
-    puts "Please provide #{ship.length} coordinate(s):"
-    user_coordinates = gets.chomp.upcase.split(" ")
+    @statement.print_to_terminal(@statement.ship_placement_error(player, ship))
+    ##############################
+    user_coordinates = @statement.get_user_input.upcase.split(" ")
   end
   @player.board.place(user_coordinates, ship)
 end
 
-def take_turn_statement
+def take_turn
   system 'clear'
-  puts "Great work, all your ships have been placed. \n" +
-  "Let me quickly explain how to play."
-  blank_formatting_line
-  puts "To play you will choose a cell on my board to fire upon.\n" +
-  "To do this, provide the coordinate of the cell you wish to fire upon.\n" +
-  "For example: A1\n" +
-  "When you are done, I will fire upon your board.\n"
-  blank_formatting_line
-  puts "After we each take our turn, I will summarize what happened and update " +
-  "the board as follows: \n" +
-  "  - . represents a cell that has not been fired on yet\n" +
-  "  - S represents your ships (we cannot see each others ships)\n" +
-  "  - M represents a miss\n" +
-  "  - H represents a hit\n" +
-  "  - X represents a sunk ship \n"
-  blank_formatting_line
-  puts "We will take turns until all of someone's ships have been sunk.\n"
-  blank_formatting_line
-  puts "Now let's play"
+#####
   take_turn
   end
 

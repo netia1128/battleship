@@ -4,7 +4,7 @@ require './lib/player'
 RSpec.describe Statement do
   before do
     @statement = Statement.new
-    @player = Player.new("Bob", 4)
+    @player = Player.new(4)
   end
 
   describe '#initialize' do
@@ -51,7 +51,7 @@ RSpec.describe Statement do
   describe '#place_specific_ship' do
     it 'contains the place specific ship statement' do
       ship = Ship.new("Tug Boat", 1)
-      expect(@statement.place_specific_ship).to eq("We are now placing the #{ship.name}.\n" +
+      expect(@statement.place_specific_ship(ship)).to eq("We are now placing the #{ship.name}.\n" +
       "The #{ship.name} is #{ship.length} cell(s) long.\n" +
       "Please provide #{ship.length} coordinate(s):")
     end
@@ -61,9 +61,34 @@ RSpec.describe Statement do
       expect(@statement.quit_game).to eq("Thanks for playing")
     end
   end
+  describe '#ship_placement_error' do
+    ship = Ship.new("Tug Boat", 1)
+    player = Player.new(4)
+    it 'contains the ship placement error statement' do
+      expect(@statement.ship_placement_error(player, ship)).to eq(   "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" +
+        " \n" +
+        "Sorry #{@name}, your placement is not valid.\n" +
+        "For a valid placement each of the following must be true:\n" +
+        "- Please provide a number of coordinates equal to the ship length\n" +
+        "- The coordinates must be consecuitive\n" +
+        "- The coordinates must run horizontally or vertically\n" +
+        "- You cannot already have a ship in a proposed coordinate\n" +
+        "- You must enter each coordinate with just a space in between.\n" +
+        "      For example:\n" +
+        "      A1 A2 A3 \n" +
+        " \n" +
+         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n" +
+        " \n" +
+        "Please try again. Here is your board: \n" +
+        " \n" +
+        player.board.render(true) +
+        " \n" +
+        "Please provide #{ship.length} coordinate(s):")
+    end
+  end
   describe '#ship_placement_explanation' do
     it 'contains the ship placement explanation statement' do
-      expect(@statement.ship_placement_explanation).to eq("Great! Now let's place your ships.\n" +
+      expect(@statement.ship_placement_explanation(@player)).to eq("Great! Now let's place your ships.\n" +
       " \n" +
       "We each have three ships.\n" +
       "    -The Cruiser, which is three cells long.\n" +
@@ -87,12 +112,35 @@ RSpec.describe Statement do
   describe '#ship_placement_success' do
     it 'contains the ship placement success statement' do
       ship = Ship.new("Tug Boat", 1)
-      expect(@statement.quit_game).to eq(  "Great job #{@name}, you've placed your #{ship.name}!\n" +
+      expect(@statement.ship_placement_success(ship, @player)).to eq(  "Great job #{@name}, you've placed your #{ship.name}!\n" +
         "Here is what your board looks like now.\n" +
         "S means there is a ship in a cell." +
         " \n" +
         @player.board.render(true) +
         " \n")
+    end
+  end
+  describe '#turn_explanation' do
+    it 'contains the turn explanation statement' do
+      expect(@statement.turn_explanation).to eq("Great work, all your ships have been placed. \n" +
+        "Let me quickly explain how to play. \n" +
+        " \n" +
+        "To play you will choose a cell on my board to fire upon.\n" +
+        "To do this, provide the coordinate of the cell you wish to fire upon.\n" +
+        "For example: A1\n" +
+        "When you are done, I will fire upon your board.\n" +
+        " \n" +
+        "After we each take our turn, I will summarize what happened and update " +
+        "the board as follows: \n" +
+        "  - . represents a cell that has not been fired on yet\n" +
+        "  - S represents your ships (we cannot see each others ships)\n" +
+        "  - M represents a miss\n" +
+        "  - H represents a hit\n" +
+        "  - X represents a sunk ship \n" +
+        " \n" +
+        "We will take turns until all of someone's ships have been sunk.\n" +
+        " \n" +
+        "Now let's play")
     end
   end
 end

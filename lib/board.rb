@@ -1,4 +1,5 @@
 require_relative 'evaluator'
+require_relative 'cell' #added
 
 class Board
   attr_reader :cells,

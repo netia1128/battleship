@@ -40,12 +40,12 @@ class Player
       wip_coordinate_index =  pivot_point_index
       wip_array = [pivot_point]
       direction = movement_array.sample
-      require 'pry'; binding.pry
+      # require 'pry'; binding.pry
       until wip_array.count == ship.length do
 
         if direction == nil || wip_coordinate_index == nil
           #THIS IS THE BUG
-          require 'pry'; binding.pry
+          # require 'pry'; binding.pry
         end
 
         wip_coordinate_index += direction
