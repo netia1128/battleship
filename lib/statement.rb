@@ -76,7 +76,6 @@ class Statement
     "Please provide #{ship.length} coordinate(s):"
   end
 
-<<<<<<< HEAD
   def ship_placement_error(player, ship)
      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" +
     " \n" +
@@ -99,8 +98,6 @@ class Statement
     "Please provide #{ship.length} coordinate(s):"
   end
 
-=======
->>>>>>> 1c7edd7b494378bebd9e3ce2af20ce9dbd792bfe
   def ship_placement_explanation(player)
     "Great! Now let's place your ships.\n" +
     " \n" +
@@ -132,7 +129,7 @@ class Statement
     " \n"
   end
 
-  def shot_report(player, computron, shot_coordinate)
+  def shot_report(player, computron, shot_coordinate, last_shot_coordinate)
     case computron.board.cells[shot_coordinate.to_sym].status
     when "M"
       "You missed!"

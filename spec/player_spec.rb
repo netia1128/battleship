@@ -3,6 +3,7 @@ require './lib/player'
 require './lib/board'
 require './lib/ship'
 require './lib/cell'
+require './lib/ship_generator'
 
 
 RSpec.describe Player do

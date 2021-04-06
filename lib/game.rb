@@ -13,6 +13,8 @@ class Game
   end
 
   def main_menu
+    system 'clear'
+    @statement.print_to_terminal(@statement.battleship_graphic)
     @statement.print_to_terminal(@statement.main_menu)
     @statement.get_user_input
     if @statement.input == "P"
@@ -92,13 +94,14 @@ def take_turn_explanation
   def take_turn
     until end_of_game?
       @statement.print_to_terminal(@statement.take_turn(@player, @computron))
+      shot_coordinate = @statement.get_user_input.upcase
+      @statement.print_to_terminal(@statement.shot_report(@player, @computron, @player.last_shot_coordinate))
       take_turn_error
     end
     end_of_game
   end
 
   def take_turn_error
-    shot_coordinate = @statement.get_user_input.upcase
     until @computron.fire_upon(shot_coordinate) != false
       system 'clear'
       @statement.print_to_terminal(@statement.take_turn_error(@player, @computron))

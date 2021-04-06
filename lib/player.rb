@@ -3,6 +3,7 @@ require_relative 'evaluator'
 require_relative 'board'
 require_relative 'game'
 require_relative 'ship'
+require_relative 'ship_generator'
 
 class Player
   attr_reader :board,
