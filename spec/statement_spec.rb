@@ -120,6 +120,33 @@ RSpec.describe Statement do
         " \n")
     end
   end
+  describe '#ship_placement_success' do
+    it 'contains the ship placement success statement' do
+      ship = Ship.new("Tug Boat", 1)
+      expect(@statement.ship_placement_success(ship, @player)).to eq(  "Great job #{@name}, you've placed your #{ship.name}!\n" +
+        "Here is what your board looks like now.\n" +
+        "S means there is a ship in a cell." +
+        " \n" +
+        @player.board.render(true) +
+        " \n")
+    end
+  end
+  describe '#take_turn' do
+    it 'contains the take turn statement' do
+      player = Player.new(4)
+      computron = Player.new(4)
+      expect(@statement.take_turn(player, computron)).to eq(    " \n" +
+          "=============COMPUTRON BOARD============= \n" +
+          " \n" +
+          computron.board.render +
+          " \n" +
+          "==============PLAYER BOARD============== \n" +
+          " \n" +
+          player.board.render(true) +
+          " \n" +
+          "Please pick a coordinate on Computron's board to fire upon:\n")
+    end
+  end
   describe '#turn_explanation' do
     it 'contains the turn explanation statement' do
       expect(@statement.turn_explanation).to eq("Great work, all your ships have been placed. \n" +

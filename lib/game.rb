@@ -68,7 +68,7 @@ class Game
       system 'clear'
       @statement.print_to_terminal(@statement.ship_placement_success(ship, @player))
     end
-    take_turn
+    take_turn_explanation
   end
 
 def ship_placement_evaluation(ship)
@@ -76,30 +76,20 @@ def ship_placement_evaluation(ship)
   until (@player.board.place(user_coordinates, ship)) != false
     system 'clear'
     @statement.print_to_terminal(@statement.ship_placement_error(player, ship))
-    ##############################
     user_coordinates = @statement.get_user_input.upcase.split(" ")
   end
   @player.board.place(user_coordinates, ship)
 end
 
-def take_turn
+def take_turn_explanation
   system 'clear'
-#####
+  @statement.print_to_terminal(@statement.turn_explanation)
   take_turn
   end
 
   def take_turn
     until end_of_game?
-      blank_formatting_line
-      puts '=============COMPUTRON BOARD============='
-      blank_formatting_line
-      puts @computron.board.render
-      blank_formatting_line
-      puts '==============PLAYER BOARD=============='
-      blank_formatting_line
-      puts @player.board.render(true)
-      blank_formatting_line
-      puts "Please pick a coordinate on Computron's board to fire upon:\n"
+      take_turn(@player, @computron)
       take_turn_evaluation
     end
     end_of_game_statement

@@ -109,6 +109,19 @@ class Statement
     " \n"
   end
 
+  def take_turn(player, computron)
+    " \n" +
+    "=============COMPUTRON BOARD============= \n" +
+    " \n" +
+    computron.board.render +
+    " \n" +
+    "==============PLAYER BOARD============== \n" +
+    " \n" +
+    player.board.render(true) +
+    " \n" +
+    "Please pick a coordinate on Computron's board to fire upon:\n"
+  end
+
   def turn_explanation
     "Great work, all your ships have been placed. \n" +
     "Let me quickly explain how to play. \n" +
