@@ -72,9 +72,9 @@ class Player
     end
   end
 
-  def auto_shot_selection(difficulty = "easy")
+  def auto_shot_selection(difficulty = "EASY")
     hit_cells_arr = @board.make_hit_cells_arr
-    if difficulty == "hard" && hit_cells_arr.count > 0
+    if difficulty == "HARD" && hit_cells_arr.count > 0
         smart_shot(hit_cells_arr)
     else
         random_shot

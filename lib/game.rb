@@ -10,6 +10,7 @@ class Game
     @computron = ""
     @board_dimension
     @statement = Statement.new
+    @difficulty_level = ''
   end
 
   def main_menu
@@ -32,10 +33,26 @@ class Game
     @statement.get_name
     system 'clear'
     @statement.print_to_terminal(@statement.introduction)
+    get_difficulty_level
+  end
+
+  def get_difficulty_level
+    @statement.print_to_terminal(@statement.ask_difficulty_level)
+    @difficulty_level = @statement.get_user_input.upcase
+    difficulty_level_evaluation
     get_board_dimensions
   end
 
+  def difficulty_level_evaluation
+    until @difficulty_level == "HARD" || @difficulty_level == "EASY"
+      system 'clear'
+      @statement.print_to_terminal(@statement.difficulty_level_error)
+      @difficulty_level = @statement.get_user_input.upcase
+    end
+  end
+
   def get_board_dimensions
+    system 'clear'
     @statement.print_to_terminal(@statement.ask_board_dimension)
     board_dimension = @statement.get_user_input.to_i
     board_dimension_evaluation(board_dimension)
@@ -45,7 +62,7 @@ class Game
     until ((4..9).to_a.include? board_dimension)
       system 'clear'
       @statement.print_to_terminal(@statement.board_dimension_error)
-      board_dimension = @statement.input.to_i
+      board_dimension = @statement.get_user_input.to_i
     end
     initialize_game(board_dimension)
   end
@@ -107,12 +124,13 @@ def take_turn_explanation
       shot_coordinate = @statement.get_user_input.upcase
     end
     @computron.fire_upon(shot_coordinate)
-    @player.auto_shot_selection("hard")
+    @player.auto_shot_selection(@difficulty_level)
     system 'clear'
     @statement.print_to_terminal(@statement.shot_report(player, computron, shot_coordinate))
   end
 
   def end_of_game
+    system 'clear'
      @statement.print_to_terminal(@statement.game_over)
      if player_won?
        @statement.print_to_terminal(@statement.you_won)
@@ -126,7 +144,7 @@ def take_turn_explanation
   end
 
   def player_won?
-    @player.ships.all? do |ship|
+    @computron.ships.all? do |ship|
       ship.sunk?
     end
   end
