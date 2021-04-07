@@ -17,7 +17,7 @@ class Board
     board_array.each do |coordinate|
       board_hash[coordinate.to_sym] = Cell.new(coordinate)
     end
-    @cells = board_hash
+    board_hash
   end
 
   def make_board_array
