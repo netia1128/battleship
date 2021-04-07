@@ -90,4 +90,14 @@ RSpec.describe Player do
       expect(bob.smart_shot(["A1"])).to eq("A2")
     end
   end
+  describe '#update_proposed_coordinate_index' do
+    it 'chnages a proposed coordinate index by a factor of direction' do
+      expect(@player.update_proposed_coordinate_index(0, 1)).to eq(1)
+    end
+  end
+  describe '#update_proposed_coordinate' do
+    it 'matches a coordinate index to a coordinate' do
+      expect(@player.update_proposed_coordinate(0)).to eq("A1")
+    end
+  end
 end

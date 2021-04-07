@@ -89,10 +89,6 @@ class Player
     pivot_point
   end
 
-  def set_wip_array(pivot_point)
-    [pivot_point]
-  end
-
   def smart_shot(hit_cells_arr)
     cells = @board.make_board_array
     pivot_point = hit_cells_arr[0]
@@ -103,7 +99,6 @@ class Player
     until fire_upon(proposed_coordinate)
       movement_array.delete(direction)
       direction = set_direction(movement_array)
-      movement_array[-1, 4 -4]
       if direction == nil
         pivot_point = hit_cells_arr[1]
         pivot_point_index = set_pivot_point_index(pivot_point)
