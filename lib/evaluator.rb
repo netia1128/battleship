@@ -70,7 +70,7 @@ class Evaluator
   end
 
   def horizontal_start_row?(pivot_point_index, board_dimension)
-    pivot_point_index / board_dimension
+    pivot_point_index / board_dimension < 1
   end
 
   def horizontal_end_row?(pivot_point_index, board_dimension)
