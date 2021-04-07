@@ -62,8 +62,13 @@ RSpec.describe Player do
   describe '#set_direction' do
     it 'choses an element from the movement array' do
       evaluator = Evaluator.new(@player.board.cells)
-      movement_array = evaluator.create_movement_array(0, 2)
-      expect(@player.set_direction(movement_array)).to eq(1 || 2)
+      movement_array = [1]
+      expect(@player.set_direction(movement_array)).to eq(1)
+    end
+  end
+  describe '#set_pivot_point_index' do
+    it 'returns the index of a pivot point cell in the cells array' do
+      expect(@player.set_pivot_point_index("A3")).to eq(2)
     end
   end
 end
