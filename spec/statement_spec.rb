@@ -7,7 +7,7 @@ RSpec.describe Statement do
     @player = Player.new(4)
   end
 
-  describe '#initialize' do
+  describe '::initialize' do
     it 'creates an instance of a statement' do
       expect(@statement).to be_an_instance_of(Statement)
     end

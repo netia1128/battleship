@@ -8,7 +8,7 @@ RSpec.describe ShipGenerator do
     @ship_generator = ShipGenerator.new
   end
 
-  describe '#initialize' do
+  describe '::initialize' do
     it 'starts with a blank ships array' do
       expect(@ship_generator.ships).to eq([])
     end

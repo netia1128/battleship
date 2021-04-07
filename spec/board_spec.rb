@@ -14,7 +14,7 @@ RSpec.describe Board do
     @submarine = Ship.new("Submarine", 2)
   end
 
-  describe '#initialize' do
+  describe '::initialize' do
     it 'creates an instance of a board' do
       expect(@board).to be_an_instance_of(Board)
     end

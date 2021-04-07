@@ -13,7 +13,7 @@ RSpec.describe Evaluator do
     @submarine = Ship.new("Submarine", 2)
   end
 
-  describe '#initialize' do
+  describe '::initialize' do
     it 'creates an instance of an Evaluator' do
       expect(@evaluator).to be_an_instance_of(Evaluator)
     end

@@ -6,7 +6,7 @@ RSpec.describe Cell do
     @cell = Cell.new("B4")
   end
 
-  describe '#initialize' do
+  describe '::initialize' do
     it 'creates an instance of a cell' do
       expect(@cell).to be_an_instance_of(Cell)
     end
