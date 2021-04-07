@@ -19,6 +19,10 @@ class Statement
     "What is your name?"
   end
 
+  def ask_difficulty_level
+    "What level of difficulty would you like to play? \n" + "Please select 'hard', or 'easy'?"
+  end
+
   def battleship_graphic
     " _____     _____   _______  _______  _        _______  _______  _     _  _______  _____   \n" +
     "|  __  \\  /  _  \\ |__   __||__   __|| |      |  _____||  ____ || |   | ||__   __||  __  \\ \n" +
@@ -39,7 +43,17 @@ class Statement
   end
 
   def computron_won
+    "Computron sunk all of your ships! \n" +
     "Computron won!"
+  end
+
+  def difficulty_level_error
+     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" +
+     " \n" +
+     "I'm sorry #{@name}, that is not a valid option. \n" +
+     "Please select either 'easy' or 'hard'. \n" +
+     " \n" +
+     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n"
   end
 
   def game_over
@@ -125,7 +139,7 @@ class Statement
   def ship_placement_success(ship, player)
     "Great job #{@name}, you've placed your #{ship.name}!\n" +
     "Here is what your board looks like now.\n" +
-    "S means there is a ship in a cell." +
+    "S means there is a ship in a cell. \n" +
     " \n" +
     player.board.render(true) +
     " \n"
@@ -211,6 +225,7 @@ class Statement
   end
 
   def you_won
+    "You sunk all of Computron's ships! \n" +
     "You won!"
   end
 end

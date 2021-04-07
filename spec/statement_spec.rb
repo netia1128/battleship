@@ -25,9 +25,29 @@ RSpec.describe Statement do
       "How many cells would you like in each row?")
     end
   end
+  describe '#ask_difficulty_level' do
+    it 'contains the ask ask difficulty level statement' do
+      expect(@statement.ask_difficulty_level).to eq("What level of difficulty would you like to play? \n" + "Please select 'hard', or 'easy'?")
+    end
+  end
   describe '#ask_name' do
     it 'contains the ask name statement' do
       expect(@statement.ask_name).to eq("What is your name?")
+    end
+  end
+  describe '#battleship_graphic' do
+    it 'contains the battleship graphic' do
+      expect(@statement.battleship_graphic).to eq(  " _____     _____   _______  _______  _        _______  _______  _     _  _______  _____   \n" +
+        "|  __  \\  /  _  \\ |__   __||__   __|| |      |  _____||  ____ || |   | ||__   __||  __  \\ \n" +
+        "| |  \\  ||  / \\  |   | |      | |   | |      | |      | |   |_|| |   | |   | |   | |  \\  |\n" +
+        "| |__/  || |___| |   | |      | |   | |      | |___   | |_____ | |___| |   | |   | |__/  |\n" +
+        "|      / |  ___  |   | |      | |   | |      |  ___|  |______ ||  ___  |   | |   |  ____/ \n" +
+        "|  __  \\ | |   | |   | |      | |   | |      | |            | || |   | |   | |   | |      \n" +
+        "| |  \\  || |   | |   | |      | |   | |      | |       _    | || |   | |   | |   | |      \n" +
+        "| |__/  || |   | |   | |      | |   | |_____ | |_____ | |___| || |   | | __| |__ | |      \n" +
+        "|______/ |_|   |_|   |_|      |_|   |_______||_______||_______||_|   |_||_______||_|      " +
+        " \n" +
+        " \n")
     end
   end
   describe '#board_dimension_error' do
@@ -38,7 +58,18 @@ RSpec.describe Statement do
   end
   describe '#computron_won' do
     it 'contains the board_dimension_error statement' do
-      expect(@statement.computron_won).to eq("Computron won!")
+      expect(@statement.computron_won).to eq(  "Computron sunk all of your ships! \n" +
+        "Computron won!")
+    end
+  end
+  describe '#difficulty_level_error' do
+    it 'contains the difficulty level error statement' do
+      expect(@statement.difficulty_level_error).to eq(     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n" +
+           " \n" +
+           "I'm sorry #{@name}, that is not a valid option. \n" +
+           "Please select either 'easy' or 'hard'. \n" +
+           " \n" +
+           "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \n")
     end
   end
   describe '#game_over' do
@@ -122,23 +153,23 @@ RSpec.describe Statement do
   describe '#ship_placement_success' do
     it 'contains the ship placement success statement' do
       ship = Ship.new("Tug Boat", 1)
-      expect(@statement.ship_placement_success(ship, @player)).to eq(  "Great job #{@name}, you've placed your #{ship.name}!\n" +
-        "Here is what your board looks like now.\n" +
-        "S means there is a ship in a cell." +
-        " \n" +
-        @player.board.render(true) +
-        " \n")
+      expect(@statement.ship_placement_success(ship, @player)).to eq("Great job #{@name}, you've placed your #{ship.name}!\n" +
+      "Here is what your board looks like now.\n" +
+      "S means there is a ship in a cell. \n" +
+      " \n" +
+      @player.board.render(true) +
+      " \n")
     end
   end
   describe '#ship_placement_success' do
     it 'contains the ship placement success statement' do
       ship = Ship.new("Tug Boat", 1)
-      expect(@statement.ship_placement_success(ship, @player)).to eq(  "Great job #{@name}, you've placed your #{ship.name}!\n" +
-        "Here is what your board looks like now.\n" +
-        "S means there is a ship in a cell." +
-        " \n" +
-        @player.board.render(true) +
-        " \n")
+      expect(@statement.ship_placement_success(ship, @player)).to eq(    "Great job #{@name}, you've placed your #{ship.name}!\n" +
+          "Here is what your board looks like now.\n" +
+          "S means there is a ship in a cell. \n" +
+          " \n" +
+          @player.board.render(true) +
+          " \n")
     end
   end
   describe '#take_turn' do
@@ -206,7 +237,8 @@ RSpec.describe Statement do
     end
     describe '#you_won' do
       it 'contains the you won statement' do
-        expect(@statement.you_won).to eq("You won!")
+        expect(@statement.you_won).to eq("You sunk all of Computron's ships! \n" +
+        "You won!")
       end
     end
 end
