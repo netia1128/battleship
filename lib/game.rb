@@ -80,7 +80,7 @@ class Game
   end
 
   def ship_placement
-    @computron.computron_ship_placement
+    @computron.auto_ship_placement
     system 'clear'
     @statement.print_to_terminal(@statement.ship_placement_explanation(@player))
     @player.ships.each do |ship|
@@ -94,7 +94,7 @@ class Game
 
 def ship_placement_evaluation(ship)
   user_coordinates = @statement.get_user_input.upcase.split(" ")
-  until (@player.board.place(user_coordinates, ship)) != false
+  until (@player.board.place(user_coordinates, ship))
     system 'clear'
     @statement.print_to_terminal(@statement.ship_placement_error(player, ship))
     user_coordinates = @statement.get_user_input.upcase.split(" ")
@@ -118,7 +118,7 @@ def take_turn_explanation
 
   def take_turn_evaluation
     shot_coordinate = @statement.get_user_input.upcase
-    until @computron.fire_upon(shot_coordinate) != false
+    until @computron.fire_upon(shot_coordinate)
       system 'clear'
       @statement.print_to_terminal(@statement.take_turn_error(@player, @computron))
       shot_coordinate = @statement.get_user_input.upcase

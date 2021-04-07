@@ -9,8 +9,8 @@ require './lib/ship_generator'
 RSpec.describe Player do
 
   before do
-    @player = Player.new("Brant", 4)
-    @computron = Player.new("Computron", 4)
+    @player = Player.new(4)
+    @computron = Player.new(4)
   end
 
   describe '#initialize' do
@@ -24,18 +24,24 @@ RSpec.describe Player do
       expect(@computron.ships.count).to eq(3)
     end
   end
-  describe '#try' do
+  describe '#attempt_auto_ship_placement' do
     it 'returns a proposed array the same size as the given ship' do
-      expect(@computron.try(@computron.ships[0]).count).to eq(3)
+      expect(@computron.attempt_auto_ship_placement(@computron.ships[0]).count).to eq(3)
     end
   end
-  describe '#computron_placement' do
+  describe '#auto_ship_placement' do
     it 'by default chages the status of 6 cells to S' do
-      @computron.computron_ship_placement
+      @computron.auto_ship_placement
       count_of_s = @computron.board.cells.find_all do |key, cell|
-                    cell.status == 'S'
-                   end.count
+        cell.status == 'S'
+      end.count
       expect(count_of_s).to eq(6)
+    end
+  end
+  describe '#auto_shot_selection' do
+    it 'results in a shot being taken' do
+      @player.auto_shot_selection
+      expect(@player.last_shot_coordinate.length).to eq(2)
     end
   end
   describe '#fire_upon' do
@@ -47,10 +53,17 @@ RSpec.describe Player do
       expect(@computron.fire_upon("A1")).to eq(false)
     end
   end
-  describe '#auto_shot_selection' do
-    it 'populates last_shot_coordinate' do
-      @player.auto_shot_selection
-      expect(@player.last_shot_coordinate.length).to eq(2)
+  describe '#random_shot' do
+    it 'results in a shot being taken' do
+      @player.random_shot
+      expect(@player.shots_available.count).to eq(15)
+    end
+  end
+  describe '#set_direction' do
+    it 'choses an element from the movement array' do
+      evaluator = Evaluator.new(@player.board.cells)
+      movement_array = evaluator.create_movement_array(0, 2)
+      expect(@player.set_direction(movement_array)).to eq(1 || 2)
     end
   end
 end
