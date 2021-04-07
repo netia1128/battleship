@@ -71,4 +71,23 @@ RSpec.describe Player do
       expect(@player.set_pivot_point_index("A3")).to eq(2)
     end
   end
+  describe '#set_random_pivot_point' do
+    it 'chooses a random cell that has not been fired on' do
+      bob = Player.new(2)
+      bob.fire_upon("A1")
+      bob.fire_upon("A2")
+      bob.fire_upon("B1")
+      expect(bob.set_random_pivot_point).to eq("B2")
+    end
+  end
+  describe '#smart_shot' do
+    it 'fires upon cells in a logical order' do
+      bob = Player.new(2)
+      submarine = Ship.new("submarine", 2)
+      bob.board.place(["A1", "A2"], submarine)
+      bob.fire_upon("A1")
+      bob.fire_upon("B1")
+      expect(bob.smart_shot(["A1"])).to eq("A2")
+    end
+  end
 end
