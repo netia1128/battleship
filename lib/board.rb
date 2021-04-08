@@ -41,8 +41,8 @@ class Board
 
   def valid_placement?(coordinates, ship)
     @evaluator.coordinates_match_ship_length?(coordinates, ship) &&
-    @evaluator.no_duplicate_coordinates?(coordinates) &&
     @evaluator.coordinates_empty?(coordinates, @cells) &&
+    @evaluator.no_duplicate_coordinates?(coordinates) &&
     @evaluator.is_consecutive?(coordinates, ship)
   end
 
