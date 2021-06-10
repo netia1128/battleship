@@ -6,10 +6,11 @@ Battleship is a ruby-based project that recreates the classic battleship game. T
 
 ## Design  
 ![Battleship](https://user-images.githubusercontent.com/76889420/121447084-334b3480-c952-11eb-863d-a6ca933af210.png)
+Battleship is initiated through a runner file which creates a new instance of a game class. The game interacts with the player through the statement class. As the user sets up the game, two instances of the player class are instantiated, with each player instance instantiating their own board, ships, and cell instances. An evaluator module services both players and boards to ensure ship placements and proposed shots are valid.
 
 ## Testing  
 The project uses Rspec to test the project. Each method contained within the project has an accompanying test. Particular attention was paid to edge cases.
 
 ## How to Play
 
-After cloning the project, cd into the project folder and from the command line run ```$ ruby battleship_runner.rb ```. This will initiate a new game.
+After cloning the project, cd into the project folder and from your CLI run ```$ ruby battleship_runner.rb ```. This will initiate a new game.
