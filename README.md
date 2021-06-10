@@ -4,6 +4,9 @@
 ## Description  
 Battleship is a ruby-based project that recreates the classic battleship game. The game is played via a CLI. The format is Player versus Computron, the computer opponent. Players start by choosing a board size and difficulty level for play. They then place their ships, and the game begins. If the player chose 'easy mode', Computron will take random shots at the player's baord. But if the player chose 'hard mode', Computron will use AI to strategically shoot at the player's board. The game continues until one party has sunk all of their opponents ships.
 
+## Project Team and Timeline
+This project was a paired student project built with my partner @branfull on a one-week timeline.
+
 ## Design  
 
 <p align="center">
