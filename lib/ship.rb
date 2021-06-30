@@ -1,10 +1,11 @@
+<?php
 class Ship
   attr_reader :name,
               :length,
               :health
 
-  def initialize(name, length)
-    @name = name
+  function __construct($name, $length)
+    name = name
     @length = length
     @health = length
   end
@@ -17,3 +18,4 @@ class Ship
     @health -= 1
   end
 end
+?>
